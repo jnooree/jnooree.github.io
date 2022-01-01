@@ -4,5 +4,8 @@
 
 layout: home
 title: Home
-banner: "/assets/images/banners/home.jpeg"
+banner:
+  height: 200px
+  opacity: 0.3
+  image: /assets/images/banners/home.jpeg
 ---

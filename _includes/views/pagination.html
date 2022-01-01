@@ -10,7 +10,8 @@
   <ul class="post-list">
     {%- for post in paginator.posts -%}
     <li>
-      {%- assign date_format = site.yat.date_format | default: "%b %-d, %Y" -%}
+      {%- assign ydf = site.yat.date_format | default: "%b %-d, %Y" -%}
+      {%- assign ldf = site.last-modified-at.date-format | default: "%b %-d, %Y" -%}
 
       {% assign article = post.content %}
       {% assign lang = post.lang %}
@@ -26,7 +27,10 @@
         </a>
       </h2>
       <div class="post-meta">
-        <span class="post-date"><i class="fa fa-calendar"></i> {{ post.date | date: date_format }}</span>
+        <span class="post-date"><i class="fa fa-calendar"></i>
+          {{ post.date | date: ydf }}
+          (last modified at {{ post.last_modified_at | date: ldf }})
+        </span>
         <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> {{ reading_time }}</span>
       </div>
       <a class="post-excerpt" href="{{ post_url }}">
