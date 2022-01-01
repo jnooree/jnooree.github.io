@@ -271,6 +271,15 @@ table {
 }
 
 /**
+ * Vertical lower
+ */
+@mixin vertical-lower($position) {
+  position: $position;
+  top: 80%;
+  transform: translateY(-80%);
+}
+
+/**
  * Horizontal center
  */
 @mixin horizontal-center($position) {
@@ -289,4 +298,3 @@ table {
   background-position: center center;
   overflow: hidden;
 }
-
