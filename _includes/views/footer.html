@@ -12,7 +12,29 @@
       | replace: '(cleft)', '<span class="copyleft">&copy;</span>'
       -%}
       <div class="left-right">
-        <span>{{ copyright }}</span>
+        <span>{{ copyright }}
+          <span class="tie footer-icon">
+            {%- for path in site.copyright-svg-paths -%}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="5.5 -3.5 64 64" style="margin-left:3px;">
+              <style>
+                :root {
+                  --color: #000;
+                }
+
+                html[data-theme="dark"] {
+                  --color: #fff;
+                }
+
+                path {
+                  fill: var(--color);
+                  fill-rule: evenodd;
+                }
+              </style>
+              <path d="{{ path }}"></path>
+            </svg>
+            {%- endfor -%}
+          </span>
+        </span>
         <span class="tie-block">
           <a class="footer-icon" href="mailto:{{ site.email }}">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220">
