@@ -158,6 +158,7 @@ header_pages:
   - categories.md
   - tags.md
   - about.md
+  - edit.md
 
 # Page default value
 # defaults:
@@ -203,4 +204,5 @@ theme: "jekyll-theme-yat"
 #   input: GFM
 plugins:
   - jekyll-last-modified-at
+  - jekyll-redirect-from
   - jekyll-include-cache
