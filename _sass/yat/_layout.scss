@@ -215,6 +215,16 @@ html {
   }
 }
 
+.footer-icon {
+  line-height: 1;
+  display: inline-block;
+}
+
+.footer-icon * {
+  height: 20px;
+  vertical-align: text-bottom;
+}
+
 .copyleft {
   display: inline-block;
   transform: rotate(180deg);
