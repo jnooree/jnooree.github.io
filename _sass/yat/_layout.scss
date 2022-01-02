@@ -230,26 +230,26 @@ html {
         margin-top: 1em;
       }
     }
-  }
 
-  a {
-    $a-color: $brand-color;
-    color: $a-color;
+    .footer-icon {
+      line-height: 1;
+      display: inline-block;
 
-    &:hover {
-      color: lighten($a-color, 10%);
+      * {
+        height: 20px;
+        vertical-align: text-bottom;
+      }
+    }
+
+    a {
+      $a-color: $brand-color;
+      color: $a-color;
+
+      &:hover {
+        color: lighten($a-color, 10%);
+      }
     }
   }
-}
-
-.footer-icon {
-  line-height: 1;
-  display: inline-block;
-}
-
-.footer-icon * {
-  height: 20px;
-  vertical-align: text-bottom;
 }
 
 .copyleft {
