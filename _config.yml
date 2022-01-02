@@ -158,7 +158,7 @@ header_pages:
   - categories.md
   - tags.md
   - about.md
-  - edit.md
+  - source.md
 
 # Page default value
 # defaults:
