@@ -1,6 +1,7 @@
 ---
 layout: about
 title: About
+lang: en
 ---
 
 ## Introduction
