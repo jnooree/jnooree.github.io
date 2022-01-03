@@ -21,15 +21,13 @@
         </span>
         <span class="tie-block">
           <a class="footer-icon" href="mailto:{{ site.email }}">
-            <i class="fas fa-envelope-square"></i>
-          </a>
+            <i class="fas fa-envelope-square"></i></a>
           {%- for sns in site.sns -%}
           <a class="footer-icon" href="https://{{ sns.name }}.com/{{ sns.id }}" style="margin-left:1em;"><i
               class="fab fa-{{ sns.name }}"></i></a>
           {%- endfor -%}
           <a class="footer-icon" href={{ "/feed.xml" | relative_url }} style="margin-left:1em;">
-            <i class="fas fa-rss-square"></i>
-          </a>
+            <i class="fas fa-rss-square"></i></a>
         </span>
       </div>
       <div class="powered-by">Powered by
