@@ -23,7 +23,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: "jnooree.dev"
+title: "blog.jnoor.ee"
 email: "jnooree@snu.ac.kr"
 author: "Nuri Jung"
 sns:
