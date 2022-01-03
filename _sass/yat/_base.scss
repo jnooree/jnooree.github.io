@@ -163,8 +163,12 @@ blockquote {
  */
 pre,
 code {
-  @include relative-font-size(0.88);
+  @include relative-font-size(0.8);
   color: $text-color;
+}
+
+a > code {
+  color: $brand-color;
 }
 
 *:not(pre) > code {
