@@ -91,6 +91,13 @@ html[data-theme="dark"] {
   .site-footer {
     color: #fff;
     background-color: #000;
+    .site-footer-inner {
+      .footer-icon {
+        * {
+          color: #fff;
+        }
+      }
+    }
   }
 
   .left-vsplit:before {

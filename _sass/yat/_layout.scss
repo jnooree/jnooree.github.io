@@ -97,9 +97,9 @@ html {
   margin-right: 50px;
 
   .site-brand-inner {
-    @include relative-font-size(1.125);
+    font-family: monospace;
     font-weight: $base-font-weight;
-    letter-spacing: -1px;
+    letter-spacing: -0.075em;
     transition: 0.1s filter color;
 
     &,
@@ -109,8 +109,9 @@ html {
 
     .site-favicon {
       display: inline-block;
-      height: $header-height / 1.5;
+      font-size: xx-large;
       margin-right: 5px;
+      vertical-align: middle;
     }
   }
 }
@@ -192,11 +193,8 @@ html {
  */
 .site-footer {
   @include relative-font-size(1);
-  color: $footer-text-color;
-  background-color: $footer-background-color;
-  transition: background-color 0.2s;
-
   text-align: left;
+
   @include media-query($content-width) {
     text-align: center;
   }
@@ -236,7 +234,7 @@ html {
       display: inline-block;
 
       * {
-        height: 20px;
+        font-size: 20px;
         vertical-align: text-bottom;
       }
     }
@@ -822,4 +820,20 @@ html {
     display: block;
     width: 0px;
   }
+}
+
+.fa-calendar-alt {
+  font-size: 0.9em;
+  vertical-align: 10%;
+}
+
+.fa-clock {
+  font-size: 0.8em;
+  vertical-align: 10%;
+}
+
+.fa-edit {
+  font-size: 0.8em;
+  margin-left: 1px;
+  vertical-align: 10%;
 }

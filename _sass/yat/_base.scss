@@ -203,6 +203,22 @@ pre {
 }
 
 /**
+ * Site footer
+ */
+.site-footer {
+  color: $footer-text-color;
+  background-color: $footer-background-color;
+  transition: background-color 0.2s;
+  .site-footer-inner {
+    .footer-icon {
+      * {
+        color: $footer-text-color;
+      }
+    }
+  }
+}
+
+/**
  * Wrapper
  */
 .wrapper {
