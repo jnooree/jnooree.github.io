@@ -59,7 +59,7 @@ copyright-icons:
 description: Yet another dev blog?
 url: "https://blog.jnoor.ee"
 favicon: dev
-favicon-svg: "/assets/images/favicon.svg"
+favicon-png: "/assets/images/favicon.png"
 
 # Yat date format
 # refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
