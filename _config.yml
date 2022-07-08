@@ -191,8 +191,8 @@ header_pages:
 paginate: 10
 
 # Disqus comments
-disqus:
-  shortname: jnooree-dev
+# disqus:
+#   shortname: jnooree-dev
 
 # Gitment comments
 # gitment:
@@ -205,12 +205,12 @@ disqus:
 # See https://utteranc.es/
 # set follow_site_theme true to make utterances' theme follow the site's
 
-# utterances:
-#   repo: "owner/repo"
-#   issue_term: "title"
-#   label: "utterances comment"
-#   theme: "github-light"
-#   follow_site_theme: true
+utterances:
+  repo: "jnooree/jnooree.github.io"
+  issue_term: "pathname"
+  label: "utterances comment"
+  theme: "github-light"
+  follow_site_theme: true
 
 # Build settings
 theme: "jekyll-theme-yat"
