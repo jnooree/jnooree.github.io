@@ -5,14 +5,13 @@
 {%- endif -%}
 
 {%- if paginator.posts.size > 0 -%}
+{%- assign ydf = site.yat.date_format | default: "%b %-d, %Y" -%}
+{%- assign ldf = site.last-modified-at.date-format | default: "%b %-d, %Y" -%}
 <div class="pagination">
   <!-- Post list links -->
   <ul class="post-list">
     {%- for post in paginator.posts -%}
     <li>
-      {%- assign ydf = site.yat.date_format | default: "%b %-d, %Y" -%}
-      {%- assign ldf = site.last-modified-at.date-format | default: "%b %-d, %Y" -%}
-
       {%- assign article = post.content -%}
       {%- assign lang = post.lang -%}
       {%- include functions.html func='get_reading_time' -%}
@@ -26,23 +25,32 @@
           {{ post.title | escape }}
         </a>
       </h2>
+      {%- if post.subtitle -%}
+      {%- assign subtitle = post.subtitle -%}
+      <h3 class="post-subtitle">{{ subtitle | escape }}</h3>
+      {%- endif -%}
       <div class="post-meta">
-        <span class="post-date"><i class="far fa-calendar-alt"></i>
+        <span class="post-date"><i class="fa-solid fa-calendar-day"></i>
           {{ post.date | date: ydf }}
-          (<i class="fas fa-edit"></i> {{ post.last_modified_at | date: ldf }})
+          (<i class="fa-solid fa-pen-to-square"></i> {{ post.last_modified_at | date: ldf }})
         </span>
         <span class="post-reading-time left-vsplit"><i class="far fa-clock"></i> {{ reading_time }}</span>
       </div>
-      <a class="post-excerpt" href="{{ post_url }}">
-        <p>
-          {{ excerpt }} <span class="read_more">Read More</span>
-        </p>
-      </a>
+      {%- include functions.html func='get_article_excerpt' -%}
+      {%- assign excerpt = return -%}
+      <div class="post-excerpt">
+        {{ excerpt }}
+        {% if excerpt_truncated %}
+        <a class="read_more" href="{{ post_url }}">Read More...</a>
+        {% endif %}
+      </div>
+      {%- if post.tags -%}
       <div class="post-tags">
         {%- for tag in post.tags -%}
         <a class="post-tag" href="{{ '/tags.html ' | relative_url }}#{{tag}}">#{{tag}}</a>
         {%- endfor -%}
       </div>
+      {%- endif -%}
     </li>
     {%- endfor -%}
   </ul>

@@ -1,29 +1,30 @@
+{%- assign ydf = site.yat.date_format | default: "%b %-d, %Y" -%}
+{%- assign ldf = site.last-modified-at.date-format | default: "%b %-d, %Y" -%}
+
 <header class="post-header">
   <h1 class="post-title p-name" itemprop="name headline">{{ heading | default: page.title | escape }}</h1>
   <h2 class="post-subtitle">{{ subheading | default: page.subtitle | escape }}</h2>
 
-  <p class="post-meta">
-    <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-      {%- assign ydf = site.yat.date_format | default: "%b %-d, %Y" -%}
-      {%- assign ldf = site.last-modified-at.date-format | default: "%b %-d, %Y" -%}
-      <i class="far fa-calendar-alt"></i>
-      {{ page.date | date: ydf }}
-      (<i class="fas fa-edit"></i> {{ page.last_modified_at | date: ldf }})
-    </time>
+  <div class="left-right">
+    {%- if page.tags.size > 0 -%}
+    <span class="post-tags tie-block">
+      {%- for tag in page.tags -%}
+      <a class="post-tag" href="{{ '/tags.html ' | relative_url }}#{{tag}}">#{{tag}}</a>
+      {%- endfor -%}
+    </span>
+    {%- endif -%}
 
-    {% assign article = page.content %}
-    {% assign lang = page.lang %}
-    {%- include functions.html func='get_reading_time' -%}
-    {% assign reading_time = return %}
-    <span class="post-reading-time left-vsplit"><i class="far fa-clock"></i> {{ reading_time }}</span>
-  </p>
-
-  {%- if page.tags.size > 0 -%}
-  <div class="post-tags">
-    {%- for tag in page.tags -%}
-    <a class="post-tag" href="{{ '/tags.html ' | relative_url }}#{{tag}}">#{{tag}}</a>
-    {%- endfor -%}
+    <span class="post-meta tie-block">
+      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        <i class="fa-solid fa-calendar-day"></i> {{ page.date | date: ydf }}
+        (<i class="fa-solid fa-pen-to-square"></i> {{ page.last_modified_at | date: ldf }})
+      </time>
+      {%- assign article = page.content -%}
+      {%- assign lang = page.lang -%}
+      {%- include functions.html func='get_reading_time' -%}
+      {%- assign reading_time = return -%}
+      <span class="post-reading-time left-vsplit"><i class="fa-regular fa-clock"></i> {{ reading_time }}</span>
+    </span>
   </div>
-  {%- endif -%}
 
 </header>

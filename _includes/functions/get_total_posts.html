@@ -1,0 +1,12 @@
+{%- assign posts_cnt = site.posts.size -%}
+
+{%- if posts_cnt > 0 -%}
+{%- assign return = "Total " | append: posts_cnt | append: " post" -%}
+{%- if posts_cnt > 1 -%}
+{%- assign return = return | append: "s" -%}
+{%- endif -%}
+{%- else -%}
+{%- assign return = "No post" -%}
+{%- endif -%}
+
+{%- assign return = return | append: "." -%}
