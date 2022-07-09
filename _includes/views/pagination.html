@@ -32,9 +32,8 @@
       <div class="post-meta">
         <span class="post-date"><i class="fa-solid fa-calendar-day"></i>
           {{ post.date | date: ydf }}
-          (<i class="fa-solid fa-pen-to-square"></i> {{ post.last_modified_at | date: ldf }})
-        </span>
-        <span class="post-reading-time left-vsplit"><i class="far fa-clock"></i> {{ reading_time }}</span>
+          (<i class="fa-solid fa-pen-to-square"></i>
+          {{ post.last_modified_at | date: ldf }})</span><span class="post-reading-time left-vsplit"><i class="far fa-clock"></i> {{ reading_time }}</span>
       </div>
       {%- include functions.html func='get_article_excerpt' -%}
       {%- assign excerpt = return -%}
