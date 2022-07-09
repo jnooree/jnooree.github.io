@@ -11,7 +11,6 @@ html {
   &[data-scroll-status="top"] {
     header.site-header-transparent {
       height: 0;
-      margin-top: 12px;
       background-color: transparent;
       transition: 0.1s height, background-color, box-shadow;
 
@@ -57,6 +56,26 @@ html {
   }
 }
 
+.left-right {
+  display: flex;
+  justify-content: space-between;
+  @include media-query($content-width) {
+    flex-direction: column;
+  }
+
+  .tie {
+    white-space: nowrap;
+  }
+
+  .tie-block {
+    white-space: nowrap;
+    @include media-query($content-width) {
+      display: block;
+      margin-bottom: 1em;
+    }
+  }
+}
+
 /**
  * Site header
  */
@@ -97,6 +116,7 @@ html {
   margin-right: 50px;
 
   .site-brand-inner {
+    @include relative-font-size(1.125);
     font-family: monospace;
     font-weight: $base-font-weight;
     letter-spacing: -0.075em;
@@ -136,12 +156,13 @@ html {
     color: $header-text-color;
     transition: 0.1s ease-in-out;
 
+    &:hover {
+      text-decoration: underline;
+    }
+
     // Gaps between nav items, but not on the last one
     &:not(:last-child) {
       margin-right: 24px;
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
 
@@ -204,22 +225,8 @@ html {
     padding: $spacing-unit 0;
 
     .left-right {
-      display: flex;
-      justify-content: space-between;
       @include media-query($content-width) {
         flex-direction: column-reverse;
-      }
-
-      .tie {
-        white-space: nowrap;
-      }
-
-      .tie-block {
-        white-space: nowrap;
-        @include media-query($content-width) {
-          display: block;
-          margin-bottom: 1em;
-        }
       }
     }
 
@@ -252,30 +259,33 @@ html {
 
 .copyleft {
   display: inline-block;
+  font-size: medium;
   transform: rotateY(180deg);
+}
+
+.board-header {
+  display: flex;
+  align-items: baseline;
+  .total-posts {
+    margin-left: auto;
+  }
 }
 
 /**
  * Post header
  */
 %post-header {
-  .post-header {
-    margin-bottom: $spacing-unit;
-  }
-
   .post-title {
     @include relative-font-size(2.25);
     letter-spacing: -1px;
-    line-height: 1;
+    margin-bottom: 0;
 
     @include media-query($on-laptop) {
-      @include relative-font-size(2);
+      @include relative-font-size(1.75);
     }
   }
 
   .post-tags {
-    padding-right: 150px;
-
     .post-tag {
       display: inline-block;
       margin: 0 12px 0 0;
@@ -289,8 +299,7 @@ html {
 .page-content {
   @extend %flex-1; /* <-- Keep footer on the bottom */
   -ms-flex: none; /* <-- Fix IE footer issue */
-  padding: $spacing-unit * 2 0;
-  padding-top: 72px;
+  padding: 0 0 $spacing-unit;
 }
 
 .page-heading {
@@ -308,57 +317,48 @@ html {
   .post-list {
     margin-left: 0;
     list-style: none;
+    font-size: small;
 
     > li {
-      margin-bottom: $spacing-unit * 1.5;
-      padding-bottom: 30px;
+      margin-bottom: $spacing-unit * 0.5;
 
       &:not(:last-child) {
+        padding-bottom: $spacing-unit * 0.5;
         border-bottom: 1px solid #e3e3e3;
       }
     }
   }
 
   .post-title {
-    margin-bottom: $spacing-unit * 0.2;
+    margin-bottom: $spacing-unit * 0.25;
     transition: 0.2s all;
 
     a {
       text-decoration: none;
+      color: #333;
 
-      &:after {
-        content: "NEW";
-        position: absolute;
-        margin-left: 8px;
-        margin-top: 3px;
-        padding: 0px 3px;
-        background-color: $brand-color;
-        color: #fff;
-        font-size: 10px;
-        font-weight: 600;
-        border-radius: 2px;
+      &:hover {
+        text-decoration: underline;
       }
 
-      &:visited:after {
-        background-color: #fff;
+      &:visited {
+        color: $grey-color;
       }
     }
   }
 
-  .post-meta {
-    font-size: $base-font-size;
-    color: $grey-color;
-    margin-bottom: $spacing-unit * 0.5;
+  .post-subtitle {
+    font-weight: lighter;
+    margin-bottom: $spacing-unit * 0.25;
   }
 
-  .post-link {
-    @include relative-font-size(1.65);
-    font-weight: $base-font-weight * 1.5;
-    color: #333;
+  .post-meta {
+    color: $grey-color;
+    margin-bottom: $spacing-unit * 0.25;
   }
 
   .post-excerpt {
-    color: #777;
+    color: $grey-color;
     word-break: break-word;
     overflow-wrap: break-word;
   }
@@ -370,7 +370,7 @@ html {
     padding: 2px 4px;
     border-radius: 2px;
     transition: color 0.2s;
-    margin-bottom: 8px;
+    margin: 5px 0;
 
     &:not(:last-child) {
       margin-right: 8px;
@@ -423,21 +423,43 @@ html {
 .post {
   @extend %post-header;
 
-  .post-header {
-    margin: 50px auto 60px;
-    padding: 0 0 20px;
-    border-bottom: 1px solid #ebebeb;
+  hr {
+    height: 1px;
+    background-color: $text-color;
+    border: none;
 
-    .post-title {
-      margin-bottom: 6px;
+    &.sub-separator {
+      background-color: #e3e3e3;
     }
+  }
+
+  .post-header {
+    margin: 0 auto $spacing-unit;
+    padding: 0;
+    border-bottom: 1px solid $text-color;
 
     .post-subtitle {
       font-weight: lighter;
+      @include media-query($content-width) {
+        margin-bottom: $spacing-unit * 0.25;
+      }
+    }
+
+    .post-tags {
+      @include media-query($content-width) {
+        margin-bottom: $spacing-unit * 0.25;
+      }
     }
 
     .post-meta {
       color: #808080;
+      display: inline-block;
+      width: 100%;
+      margin-bottom: $spacing-unit * 0.25;
+      text-align: right;
+      @include media-query($content-width) {
+        text-align: left;
+      }
     }
   }
 
@@ -446,6 +468,13 @@ html {
     overflow-wrap: normal;
     word-wrap: normal;
     word-break: normal;
+
+    h1 {
+      @include relative-font-size(2);
+      @include media-query($on-laptop) {
+        @include relative-font-size(1.75);
+      }
+    }
 
     h2 {
       @include relative-font-size(1.625);
@@ -484,7 +513,7 @@ html {
     h4,
     h5,
     h6 {
-      margin: 60px 0 19px;
+      margin: 30px 0 19px;
     }
 
     p,
@@ -492,18 +521,18 @@ html {
       margin-bottom: 24px;
     }
 
-    hr {
-      height: 1px;
-      background-color: #ebebeb;
-      border: none;
+    th {
+      text-align: center;
+      font-weight: bold;
     }
   }
 
   .post-related {
+    margin-top: $spacing-unit * 0.5;
     & > *:first-child {
       @include relative-font-size(1.425);
       color: #333;
-      margin-bottom: 14px;
+      margin-bottom: $spacing-unit * 0.5;
     }
 
     ul {
@@ -550,8 +579,8 @@ html {
 .post-nav {
   display: flex;
   justify-content: space-between;
-  margin: 72px 0 59px;
-  padding: 31px 0 0;
+  margin: $spacing-unit * 0.5 0;
+  padding: 0;
 
   a {
     @include relative-font-size(1.125);
@@ -650,7 +679,10 @@ html {
     text-shadow: 1px 1px 2px #33333355;
 
     & > *:first-child {
-      margin: 0;
+      margin-right: 30%;
+      @include media-query($on-laptop) {
+        margin-right: 0;
+      }
 
       > :nth-child(1) {
         @include relative-font-size(2.75);
@@ -658,6 +690,10 @@ html {
         margin-bottom: -0.1em;
         font-weight: normal;
         transition: 0.2s all;
+
+        @include media-query($on-laptop) {
+          @include relative-font-size(2.5);
+        }
 
         @include media-query($on-palm) {
           @include relative-font-size(1.975);
@@ -729,18 +765,38 @@ html {
 .framework {
   @extend %flex;
 
+  @include media-query($on-laptop) {
+    margin-top: $spacing-unit * 0.5;
+  }
+
   .main {
     @extend %flex-1;
   }
 
   .sidebar {
     padding-left: 8px;
+    margin-left: 15px;
+
     transition: top 0.2s, display 0.2s;
+    min-width: 200px;
+    max-width: $content-width * 0.3;
+
+    @include media-query($on-laptop) {
+      max-width: $content-width * 0.2;
+    }
+
+    @include relative-font-size(1);
 
     @include flex-sticky($header-height + 20px);
 
-    @include media-query($on-laptop) {
+    @include media-query($content-width) {
       display: none;
+    }
+
+    .post-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
   }
 }
@@ -749,21 +805,19 @@ html {
  * Segments page
  */
 .page-segments {
-  .page-segments-list {
-    margin-left: 0;
-    list-style: none;
-  }
-
-  .segment-name {
+  .segment-name,
+  .segment-subname {
     font-weight: $base-font-weight * 1.5;
     margin-bottom: 8px;
     position: relative;
 
-    @include relative-font-size(1.6);
-
     &:not(:first-child) {
       margin-top: 28px;
     }
+  }
+
+  .segment-name {
+    @include relative-font-size(1.6);
 
     &:hover:before {
       content: "#";
@@ -782,27 +836,14 @@ html {
       margin-left: 5px;
     }
 
-    color: #303030;
+    color: #333;
 
     &:hover {
       color: #000;
     }
 
-    &:after {
-      content: "NEW";
-      position: absolute;
-      margin-left: 8px;
-      margin-top: 3px;
-      padding: 0px 3px;
-      background-color: $brand-color;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 600;
-      border-radius: 2px;
-    }
-
-    &:visited:after {
-      background-color: #fff;
+    &:visited {
+      color: $grey-color;
     }
   }
 }
@@ -818,22 +859,7 @@ html {
 
   @include media-query($on-laptop) {
     display: block;
-    width: 0px;
+    width: 0;
+    height: $spacing-unit * 0.1;
   }
-}
-
-.fa-calendar-alt {
-  font-size: 0.9em;
-  vertical-align: 13%;
-}
-
-.fa-clock {
-  font-size: 0.8em;
-  vertical-align: 7%;
-}
-
-.fa-edit {
-  font-size: 0.8em;
-  margin-left: 1px;
-  vertical-align: 10%;
 }

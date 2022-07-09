@@ -84,6 +84,7 @@ img {
 figure {
   img {
     display: block;
+    width: 100%;
     margin: $spacing-unit / 2 0;
   }
 
@@ -138,6 +139,16 @@ a {
 
     .username {
       text-decoration: underline;
+    }
+  }
+
+  &.footnote {
+    &:before {
+      content: "[";
+    }
+
+    &:after {
+      content: "]";
     }
   }
 }
@@ -209,6 +220,7 @@ pre {
   color: $footer-text-color;
   background-color: $footer-background-color;
   transition: background-color 0.2s;
+
   .site-footer-inner {
     .footer-icon {
       * {
@@ -227,6 +239,11 @@ pre {
   padding-right: $spacing-unit;
   padding-left: $spacing-unit;
   @extend %clearfix;
+
+  @include media-query($on-palm) {
+    padding-right: $spacing-unit * 0.5;
+    padding-left: $spacing-unit * 0.5;
+  }
 }
 
 /**
@@ -242,13 +259,13 @@ pre {
  * Tables
  */
 table {
-  display: block;
   margin-bottom: $spacing-unit;
   width: 100%;
   text-align: $table-text-align;
   color: lighten($text-color, 5%);
   border-collapse: collapse;
   overflow: auto;
+  font-size: 90%;
 
   tr {
     &:nth-child(even) {
@@ -259,6 +276,9 @@ table {
   th,
   td {
     padding: ($spacing-unit / 3) ($spacing-unit / 2);
+    @include media-query($on-palm) {
+      padding: ($spacing-unit / 6) ($spacing-unit / 4);
+    }
   }
 
   th {
@@ -334,4 +354,10 @@ table {
   background-size: cover;
   background-position: center center;
   overflow: hidden;
+}
+
+@counter-style brackets {
+  system: extends decimal;
+  prefix: "[";
+  suffix: "]   ";
 }
