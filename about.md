@@ -28,4 +28,4 @@ For natural languages,
 
 ## Contacts
 
-<i class="far fa-envelope"></i> &ensp; [jnooree@snu.ac.kr](mailto:jnooree@snu.ac.kr)
+<i class="fa-regular fa-envelope"></i> &ensp; [jnooree@snu.ac.kr](mailto:jnooree@snu.ac.kr)

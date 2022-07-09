@@ -15,19 +15,19 @@
         <span>{{ copyright }}
           <span class="tie footer-icon">
             {%- for icon in site.copyright-icons -%}
-            <i class="fab {{ icon }}" style="margin-left: 3px;"></i>
+            <i class="fa-brands {{ icon }}" style="margin-left: 3px;"></i>
             {%- endfor -%}
           </span>
         </span>
         <span class="tie-block">
           <a class="footer-icon" href="mailto:{{ site.email }}">
-            <i class="fas fa-envelope-square"></i></a>
+            <i class="fa-solid fa-envelope-square"></i></a>
           {%- for sns in site.sns -%}
           <a class="footer-icon" href="https://{{ sns.name }}.com/{{ sns.id }}" style="margin-left:1em;"><i
-              class="fab fa-{{ sns.name }}"></i></a>
+              class="fa-brands fa-{{ sns.name }}"></i></a>
           {%- endfor -%}
           <a class="footer-icon" href={{ "/feed.xml" | relative_url }} style="margin-left:1em;">
-            <i class="fas fa-rss-square"></i></a>
+            <i class="fa-solid fa-rss-square"></i></a>
         </span>
       </div>
       <div class="powered-by">Powered by
