@@ -6,7 +6,8 @@ lang: en
 
 ## Introduction
 
-Undergraduate student at Seoul National University, studying Chemistry and
+Graduate student at Seoul National University [Lab of Computational Biology and
+Biomolecular Engineering](https://seoklab.org), studying Chemistry and
 Computational Science.
 
 Mostly interested in computational chemistry, computer & software engineering.
