@@ -32,7 +32,7 @@ def foo():
     pass
 ```
 
-C나 다른 언어를 하다 오신 분의 경우에는 그냥 함수를 설명하는 주석(block comment)이겠거니 하고 넘기셨을 수도 있습니다만, 사실 파이썬에서는 triple-quoted string 역시 일반적인 string literal과 동일하게 사용 가능합니다. 그런데 왜 굳이 귀찮게 세번씩 쳐야 하냐고요?
+C나 다른 언어를 하다 오신 분의 경우에는 그냥 함수를 설명하는 주석(block comment)이겠거니 하고 넘기셨을 수도 있습니다만, 사실 Python에서는 triple-quoted string 역시 일반적인 string literal과 동일하게 사용 가능합니다. 그런데 왜 굳이 귀찮게 세번씩 쳐야 하냐고요?
 
 ```python
 long_string = "A very long string with\n" \
@@ -164,7 +164,7 @@ s + " " + t
 
 ## Ternary operator
 
-다른 언어에 익숙한 분들은 Python을 처음 쓸 때 `?:` 연산자를 시도하고 장렬하게 `SyntaxError`와 함꼐 산화한 경험이 있으실 겁니다. 그렇다고 파이썬에 ternary operator가 없는 것은 아닙니다.
+다른 언어에 익숙한 분들은 Python을 처음 쓸 때 `?:` 연산자를 시도하고 장렬하게 `SyntaxError`와 함꼐 산화한 경험이 있으실 겁니다. 그렇다고 Python에 ternary operator가 없는 것은 아닙니다.
 
 Ternary operator는 기본적으로는 다음과 같은 작업을 줄여서 쓰기 위해 도입되었습니다.
 
