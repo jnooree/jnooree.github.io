@@ -23,6 +23,10 @@ date: 2022-07-09T23:51:56.003835+09:00
 5. Subprocess management
 6. Miscellaneous useful modules
 
+## Benchmark code
+
+이 시리즈는 여러 벤치마크를 포함한다. 벤치마크에서 실제로 실행한 코드는 [Github Gist](https://gist.github.com/jnooree/57b70ac3c5e23260301538958ecfca13)에서 볼 수 있다.
+
 ## Notes
 
 이 시리즈는 2022년 7월 8일 [연구실](https://seoklab.org)에서 진행했던 동 제목의 [온라인 세미나](https://drive.google.com/drive/folders/18SDWiRlrd2Ya47MItXZEs2JRZbFjvblr?usp=sharing)의 내용을 기반으로 한다.
