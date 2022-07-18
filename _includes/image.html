@@ -2,5 +2,7 @@
 	<img src="{{ include.url }}" alt="{{ include.description }}">
 	{%- if include.description -%}
 	<figcaption>{{ include.description }}</figcaption>
+	{%- elsif include.caption -%}
+	<figcaption>{{ include.caption }}</figcaption>
 	{%- endif -%}
 </figure>
