@@ -76,20 +76,21 @@ A very long string with
 
 ## _f_-string
 
-프로그래밍에서 절대로 빼놓을 수 없는 편의기능을 한 개만 고르라면, string formatting을 고르는 사람도 꽤 있을 겁니다. Python은 전통적으로 C와 비슷한 `%`-formatting을 지원하지만, 이 방식은 1) 포맷할 자리와 값을 두 차례 전달하기 때문에 실수할 여지가 많다는 문제가 있고, 2) 속도가 느립니다. 이후 등장한 string type의 `.format()` 메서드 역시 비슷한 문제를 공유합니다.
+프로그래밍에서 절대로 빼놓을 수 없는 편의기능을 한 개만 고르라면, string formatting을 고르는 사람도 꽤 있을 겁니다. Python은 전통적으로 C와 비슷한 `%`-formatting을 지원하지만, 이 방식은 1) **포맷할 자리와 값을 두 차례 전달하기 때문에 실수할 여지가 많다는 문제가 있고**, 2) 속도가 느립니다[^3]. 이후 등장한 string type의 `.format()` 메서드 역시 비슷한 문제를 공유합니다.
 
-Python 3.6 버전에서 추가된 _f_-string[^3]을 사용하면 이런 문제를 깔끔하게 회피 가능합니다.
+Python 3.6 버전에서 추가된 _f_-string[^4]을 사용하면 이런 문제를 깔끔하게 회피 가능합니다.
 
-[^3]: String literal 앞에 `f` 표기를 붙이기 때문에 _f_-string이라고 불립니다. 정식 명칭은 [formatted string literal](https://docs.python.org/3/tutorial/inputoutput.html#tut-f-strings)입니다. 더 자세한 명세는 [이쪽](https://docs.python.org/3/reference/lexical_analysis.html#f-strings)을 참고하세요.
+[^3]: 실수할 여지가 많다는 것이 더 큰 문제입니다. 어차피 둘 모두 충분히 빠르기 때문에 속도 이슈는 대부분의 경우 코드 실행 시간에 별다른 영향을 미치지 않습니다 ([Amdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law)).
+[^4]: String literal 앞에 `f` 표기를 붙이기 때문에 _f_-string이라고 불립니다. 정식 명칭은 [formatted string literal](https://docs.python.org/3/tutorial/inputoutput.html#tut-f-strings)입니다. 더 자세한 명세는 [이쪽](https://docs.python.org/3/reference/lexical_analysis.html#f-strings)을 참고하세요.
 
 ```python
 name = "Nuri Jung"
 print(f"My name is {name}")
 ```
 
-말 그대로 literal이기 때문에 lazy evaluation[^4]이 일어나지 않습니다.
+말 그대로 literal이기 때문에 lazy evaluation[^5]이 일어나지 않습니다.
 
-[^4]: 어떤 식의 값이 정의 시점이 아니라 사용 시점에 결정되는 것을 말합니다. 대표적인 lazy evaluation의 예시에는 `range()`가 있습니다.
+[^5]: 어떤 식의 값이 정의 시점이 아니라 사용 시점에 결정되는 것을 말합니다. 대표적인 lazy evaluation의 예시에는 `range()`가 있습니다.
 
 ```python
 >>> name = "Nuri Jung"
@@ -181,9 +182,9 @@ else:
 print(a if a >= 0 else -a)
 ```
 
-항상 그렇듯이 Python 특유의 ~~변태적인~~ 문법이 눈에 띄는군요. 영어를 잘 하는 분이라면 그래도 좀더 직관적으로 와닿을지도 모르겠습니다. 영어 어순과 거의 동일하게 논리가 흘러가기 때문이죠[^5].
+항상 그렇듯이 Python 특유의 ~~변태적인~~ 문법이 눈에 띄는군요. 영어를 잘 하는 분이라면 그래도 좀더 직관적으로 와닿을지도 모르겠습니다. 영어 어순과 거의 동일하게 논리가 흘러가기 때문이죠[^6].
 
-[^5]: 그렇다고 평가 순서까지 직관적인 것은 아닙니다. 조건문이 가장 먼저 실행되고, 조건문이 참이면 if 이전의 코드가, 거짓이면 else 이후의 코드가 실행됩니다.
+[^6]: 그렇다고 평가 순서까지 직관적인 것은 아닙니다. 조건문이 가장 먼저 실행되고, 조건문이 참이면 if 이전의 코드가, 거짓이면 else 이후의 코드가 실행됩니다.
 
 좀 더 formal하게 정의하면, 다음 두 식의 실행 결과 `result`는 같습니다.
 
@@ -287,9 +288,9 @@ squares = {x: x**2 for x in range(10) if x % 2}
 squares = (x**2 for x in range(10) if x % 2)
 ```
 
-그러나 마지막과 같이 쓰면 tuple comprehension이 아니라 [generator expression](https://docs.python.org/3/reference/expressions.html#generator-expressions)[^6]이 됩니다. Tuple로 바꾸고 싶은 경우 tuple로 type casting해 줍시다.
+그러나 마지막과 같이 쓰면 tuple comprehension이 아니라 [generator expression](https://docs.python.org/3/reference/expressions.html#generator-expressions)[^7]이 됩니다. Tuple로 바꾸고 싶은 경우 tuple로 type casting해 줍시다.
 
-[^6]: Lazy evaluation을 지원하는 iterator. 실제로 iteration을 할 때 (eg. for loop) 각각의 값이 계산된다.
+[^7]: Lazy evaluation을 지원하는 iterator. 실제로 iteration을 할 때 (eg. for loop) 각각의 값이 계산된다.
 
 ```python
 squares = tuple(x**2 for x in range(10) if x % 2)
@@ -297,9 +298,9 @@ squares = tuple(x**2 for x in range(10) if x % 2)
 
 ## Assignment expression
 
-Python에서 assignment문은 다른 많은 언어에서와는 달리 **expression이 아닙니다**[^7]. 즉, assignment문은 아무것도 반환하지 않습니다.
+Python에서 assignment문은 다른 많은 언어에서와는 달리 **expression이 아닙니다**[^8]. 즉, assignment문은 아무것도 반환하지 않습니다.
 
-[^7]: [여기](https://docs.python.org/3/glossary.html#term-expression)를 참고하세요.
+[^8]: [여기](https://docs.python.org/3/glossary.html#term-expression)를 참고하세요.
 
 ```python
 # SyntaxError
