@@ -340,7 +340,9 @@ while (flag := foo()):
 
 ## Loop-else construct
 
-많은 사람들의 인식과는 달리 Python은 있어야 할 것은 없고 없어도 되는 것은 있는 경우가 꽤 잦은, 독특한 언어입니다. Loop-else construct도 "없어도 되는" syntax의 예시인데요, 물론 꽤나 유용하게 사용되기는 하지만 이런 문법은 다른 언어에서는 찾아보기 어렵습니다.
+많은 사람들의 인식과는 달리 Python은 있어야 할 것은 없고 없어도 되는 것은 있는 경우가 꽤 잦은, 독특한 언어입니다. Loop-else construct도 "없어도 되는" syntax의 예시인데요, 물론 꽤나 유용하게 사용되기는 하지만 이런 문법은 다른 언어에서는 찾아보기 어렵습니다.[^9]
+
+[^9]: 이 syntax가 어쩌다 도입되었는지가 궁금하다면, 이 [stackoverflow 답변](https://stackoverflow.com/a/23748240)을 참고하세요.
 
 ```python
 # For-else statement
@@ -360,7 +362,7 @@ if not found:
     print("No answer")
 ```
 
-즉, loop의 정상적인 종료 시에만 (`break`이나 `return`등을 통해 loop이 끝나지 않는 경우에만) `else`문이 실행됩니다. Loop을 돌면서 특정 조건을 만족하는지 확인하고, 만족하지 않는 경우 예외 처리를 해야 하는 코드에서 유용하게 사용됩니다.
+즉, loop의 정상적인 종료 시에만 (`break`이나 `return`등을 통해 loop이 끝나지 않는 경우에만) else문이 실행됩니다. Loop을 돌면서 특정 조건을 만족하는지 확인하고, 만족하지 않는 경우 예외 처리를 해야 하는 코드에서 유용하게 사용됩니다. 예시로는 for문만 들었지만, loop else construct라는 말에서도 볼 수 있듯이 while loop도 else문의 사용이 가능합니다.
 
 ## Wrap-up
 
