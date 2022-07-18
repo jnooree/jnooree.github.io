@@ -150,6 +150,10 @@ html[data-theme="dark"] {
         background-color: #ffffff33;
       }
     }
+
+    .footnotes::before {
+      background-color: #545454;
+    }
   }
 
   .post-related {

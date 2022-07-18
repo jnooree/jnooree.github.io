@@ -121,6 +121,9 @@ h4,
 h5,
 h6 {
   font-weight: $base-font-weight * 1.5;
+  > code {
+    font-size: inherit;
+  }
 }
 
 /**
@@ -193,10 +196,11 @@ pre {
   overflow-x: auto;
   position: relative;
   background-color: #f0f0f0;
+  border-radius: 5px;
 
   > code {
     display: inline-block;
-    padding: 20px !important;
+    padding: $spacing-unit * 0.5 !important;
     background-color: transparent;
     border: 0;
   }
