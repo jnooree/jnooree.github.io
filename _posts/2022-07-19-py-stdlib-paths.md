@@ -229,7 +229,7 @@ shutil.copytree("src", "dst", dirs_exist_ok=True)
 shutil.rmtree("src")
 ```
 
-### Generate temporary files and directories
+## Generate temporary files and directories
 
 코딩을 하다 보면 가끔 임시로 사용하는 파일이나 디렉토리를 생성해야 하는 경우가 있습니다. 보통은 이런 방식을 사용하실 텐데요, 다른 사용자나 프로세스가 동일한 이름의 파일이나 디렉토리를 수정하려고 시도할 수 있기 때문에 권장하지 않습니다.
 
