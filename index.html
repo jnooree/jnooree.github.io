@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Home | blog.jnoor.ee</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Home">
+<meta name="author" content="Nuri Jung">
+<meta property="og:locale" content="ko">
+<meta name="description" content="Yet another dev blog?">
+<meta property="og:description" content="Yet another dev blog?">
+<link rel="canonical" href="https://blog.jnoor.ee/">
+<meta property="og:url" content="https://blog.jnoor.ee/">
+<meta property="og:site_name" content="blog.jnoor.ee">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Home">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Nuri Jung"},"dateModified":"2022-01-02T06:48:26+09:00","description":"Yet another dev blog?","headline":"Home","name":"blog.jnoor.ee","url":"https://blog.jnoor.ee/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="https://blog.jnoor.ee/feed.xml" title="blog.jnoor.ee">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script><script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+<header class="site-header site-header-transparent" role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <i class="fa-brands fa-dev site-favicon" title="blog.jnoor.ee" onerror="this.style.display='none'"></i>
+  blog.jnoor.ee
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/">HOME</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/tags.html">TAGS</a><a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/src">SOURCE</a>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+<style>html .page-banner {
+      height:  73.6px;
+      min-height: 200px;
+    }
+    html[data-scroll-status="top"] .page-banner {
+      height: 200px;
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-img > *:first-child {
+      opacity: 0.3;
+    }
+
+    html[data-theme="dark"] .page-banner .page-banner-img > *:first-child {
+      opacity: 0.2154;
+    }
+  </style>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/assets/images/banners/home.jpeg)"></div>
+        <img class="img-placeholder" src="/assets/images/banners/home.jpeg">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner"><div class="page-banner-default">
+            <h1 class="page-banner-heading">
+              정누리의 개발 이야기
+            </h1>
+            <h2 class="page-banner-subheading">
+              Yet another dev blog?
+            </h2>
+          </div></div>
+    </div>
+  </section><script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle-wrapper">
+  <div class="theme-toggle">
+    <input type="checkbox" id="theme-switch">
+    <label for="theme-switch">
+      <div class="toggle"></div>
+      <div class="names">
+        <p class="light">Light</p>
+        <p class="dark">Dark</p>
+      </div>
+    </label>
+  </div>
+</div>
+<script>
+  (function () {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+      ? localStorage
+      : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch (e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function () {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <= 7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function () {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function (event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa-solid fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      } else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+    <div class="articles">
+  
+
+  <div class="post">
+    <div class="post-content">
+        <div class="board-header">
+            <h1>Home</h1>
+<span class="total-posts">Total 7 posts.</span>
+        </div>
+        <hr>
+    </div>
+</div>
+
+
+
+
+  <div class="pagination">
+  <!-- Post list links -->
+  <ul class="post-list">
+<li>
+<h2 class="post-title">
+        <a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html">
+          Manipulating paths in Python
+        </a>
+      </h2>
+<h3 class="post-subtitle">The beauty of the object-oriented paths</h3>
+<div class="post-meta">
+        <span class="post-date"><i class="fa-solid fa-calendar-day"></i>
+          2022-07-19 08:44 PM
+          (<i class="fa-solid fa-pen-to-square"></i>
+          2022-07-19 10:56:45 PM)</span><span class="post-reading-time left-vsplit"><i class="far fa-clock"></i> About 22 mins</span>
+      </div>
+<div class="post-excerpt">
+        Package index
+
+
+  pathlib1
+  shutil
+  tempfile
+
+
+Object-oriented filesystem paths
+
+이 글을 읽고 나면, 여러분이 작성하시는 코드는 대부분 이 줄을 포함하게 될 겁니다.
+
+from pathlib import Path
+
+
+What is pathlib?
+
+Python 개발자들이...
+        
+        <a class="read_more" href="/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html">Read More...</a>
+        
+      </div>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#dev">#dev</a><a class="post-tag" href="/tags.html#python">#python</a>
+</div>
+</li>
+<li>
+<h2 class="post-title">
+        <a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/18/py-stdlib-builtins.html">
+          More about built-ins
+        </a>
+      </h2>
+<h3 class="post-subtitle">Are you familiar with Python's built-ins?</h3>
+<div class="post-meta">
+        <span class="post-date"><i class="fa-solid fa-calendar-day"></i>
+          2022-07-18 03:12 PM
+          (<i class="fa-solid fa-pen-to-square"></i>
+          2022-07-18 04:17:38 PM)</span><span class="post-reading-time left-vsplit"><i class="far fa-clock"></i> About 12 mins</span>
+      </div>
+<div class="post-excerpt">
+        Iterator wrappers
+
+기본 제공되는 유용한 iterator wrapper는 enumerate와 zip이 있습니다. 각각 iteration 과정에서 index가 value와 함께 필요한 경우,
+
+# Don't:
+for i in range(len(a)):
+    foo(i, a[i])
+
+# Do:
+for i, v in enumerate(a):
+    f...
+        
+        <a class="read_more" href="/exploring%20the%20python%20standard%20library/2022/07/18/py-stdlib-builtins.html">Read More...</a>
+        
+      </div>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#dev">#dev</a><a class="post-tag" href="/tags.html#python">#python</a>
+</div>
+</li>
+<li>
+<h2 class="post-title">
+        <a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/11/py-stdlib-syntax.html">
+          Advanced Python Syntax
+        </a>
+      </h2>
+<h3 class="post-subtitle">The python you might not have heard of</h3>
+<div class="post-meta">
+        <span class="post-date"><i class="fa-solid fa-calendar-day"></i>
+          2022-07-11 11:22 PM
+          (<i class="fa-solid fa-pen-to-square"></i>
+          2022-07-18 03:10:25 PM)</span><span class="post-reading-time left-vsplit"><i class="far fa-clock"></i> About 28 mins</span>
+      </div>
+<div class="post-excerpt">
+        혹시 이거 아시나요?
+
+
+  Triple quotes (“docstrings”)
+  f-string (formatted string literals)1
+  Ternary operator
+  or as a conditional statement
+  Comprehensions
+  Assignment expression2
+  Loop-else const...
+        
+        <a class="read_more" href="/exploring%20the%20python%20standard%20library/2022/07/11/py-stdlib-syntax.html">Read More...</a>
+        
+      </div>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#dev">#dev</a><a class="post-tag" href="/tags.html#python">#python</a>
+</div>
+</li>
+<li>
+<h2 class="post-title">
+        <a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/09/exploring-py-stdlib-intro.html">
+          Exploring the Python Standard Library
+        </a>
+      </h2>
+<h3 class="post-subtitle">Introduction</h3>
+<div class="post-meta">
+        <span class="post-date"><i class="fa-solid fa-calendar-day"></i>
+          2022-07-09 11:51 PM
+          (<i class="fa-solid fa-pen-to-square"></i>
+          2022-07-18 04:37:58 PM)</span><span class="post-reading-time left-vsplit"><i class="far fa-clock"></i> About 2 mins</span>
+      </div>
+<div class="post-excerpt">
+        
+  “The standard library saves programmers from having to reinvent the wheel.”
+― Bjarne Stroustrup, father of the C++ programming language
+
+
+Preface
+
+초보 개발자들이 저지르기 가장 쉬운 실수는 바...
+        
+        <a class="read_more" href="/exploring%20the%20python%20standard%20library/2022/07/09/exploring-py-stdlib-intro.html">Read More...</a>
+        
+      </div>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#dev">#dev</a><a class="post-tag" href="/tags.html#python">#python</a>
+</div>
+</li>
+<li>
+<h2 class="post-title">
+        <a class="post-link" href="/general/2022/01/03/my-domain.html">
+          도메인 샀습니다
+        </a>
+      </h2>
+<h3 class="post-subtitle">2022년 첫 뻘짓</h3>
+<div class="post-meta">
+        <span class="post-date"><i class="fa-solid fa-calendar-day"></i>
+          2022-01-03 10:07 PM
+          (<i class="fa-solid fa-pen-to-square"></i>
+          2022-01-03 11:19:03 PM)</span><span class="post-reading-time left-vsplit"><i class="far fa-clock"></i> About 4 mins</span>
+      </div>
+<div class="post-excerpt">
+        네, 질렀습니다
+
+오늘 galaxy.seoklab.org에 ssl 인증서를 설치하는
+작업을 하면서 도메인이랑 DNS를 만져봤습니다. 그랬더니 문득 제 아이디인 jnoor.ee
+도메인이 주인이 있는지 궁금해졌습니다. 찾아봤더니 주인이 없더군요.
+
+
+	네, 질렀습니다.
+
+그래서 못 참고 질렀습니다. 1년에 세금 20% 포함해서 9.6 유로1...
+        
+        <a class="read_more" href="/general/2022/01/03/my-domain.html">Read More...</a>
+        
+      </div>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#dev">#dev</a><a class="post-tag" href="/tags.html#web">#web</a>
+</div>
+</li>
+<li>
+<h2 class="post-title">
+        <a class="post-link" href="/general/2022/01/01/initial-post.html">
+          개발 블로그 시작했습니다
+        </a>
+      </h2>
+<h3 class="post-subtitle">네, 저도 그거 합니다.</h3>
+<div class="post-meta">
+        <span class="post-date"><i class="fa-solid fa-calendar-day"></i>
+          2022-01-01 11:00 PM
+          (<i class="fa-solid fa-pen-to-square"></i>
+          2022-01-02 05:22:14 PM)</span><span class="post-reading-time left-vsplit"><i class="far fa-clock"></i> About 1 min</span>
+      </div>
+<div class="post-excerpt">
+        Introduction
+
+대학원 입학을 기념해서, 올해부터 개발 블로그를 시작하려 한다. 예전부터 블로그
+쓰시는 개발자 분들을 종종 봐서 나도 해볼까 하다가 귀찮아서 매번 그만뒀는데,
+새해라는 좋은 핑계도 있겠다, 이제는 슬슬 진짜 시작하면 좋을 것 같아서 정말로
+블로그를 파게 됐다.
+
+왜 하필 github.io?
+
+그러게 ...
+        
+        <a class="read_more" href="/general/2022/01/01/initial-post.html">Read More...</a>
+        
+      </div>
+<div class="post-tags"><a class="post-tag" href="/tags.html#general">#general</a></div>
+</li>
+<li>
+<h2 class="post-title">
+        <a class="post-link" href="/%EC%97%B0%EB%A7%90%EC%A0%95%EC%82%B0/2021/12/31/year-end-settlement.html">
+          2021 연말정산
+        </a>
+      </h2>
+<h3 class="post-subtitle">6년짜리 학부 졸업에 부쳐</h3>
+<div class="post-meta">
+        <span class="post-date"><i class="fa-solid fa-calendar-day"></i>
+          2021-12-31 11:44 PM
+          (<i class="fa-solid fa-pen-to-square"></i>
+          2022-01-02 06:48:26 AM)</span><span class="post-reading-time left-vsplit"><i class="far fa-clock"></i> About 4 mins</span>
+      </div>
+<div class="post-excerpt">
+        12월 31일과 1월 1일 사이의 경계는 아무런 때도 아니다.
+
+누군가는 지구가 동일한 위치를 지나는 날이라고 주장할지도 모르겠지만, 실제로는
+그렇지 않다. 멀리 갈 필요 없이 지구의 공전 주기는 정확히 365일이 아니다. 어쩌면
+1년이 365일에 꽤나 가까운 것도 기적에 가까울 지 모른다. 공전 주기가 꼭 자전
+주기의 정확한...
+        
+        <a class="read_more" href="/%EC%97%B0%EB%A7%90%EC%A0%95%EC%82%B0/2021/12/31/year-end-settlement.html">Read More...</a>
+        
+      </div>
+<div class="post-tags"><a class="post-tag" href="/tags.html#%EC%97%B0%EB%A7%90%EC%A0%95%EC%82%B0">#연말정산</a></div>
+</li>
+</ul>
+
+  <!-- Pagination links -->
+</div>
+</div>
+
+
+  </section>
+  <section class="sidebar">
+    <!-- Get sidebar items -->
+
+
+<div class="common-list">
+  <ul>
+    <li>
+      <a href="/index.html">
+        All<span>7</span>
+      </a>
+    </li>
+<li>
+        <a href="/categories.html#h-Exploring%20the%20Python%20Standard%20Library">
+          Exploring the Python Standard Library <span>4</span>
+        </a>
+      </li>
+<li>
+        <a href="/categories.html#h-general">
+          general <span>2</span>
+        </a>
+      </li>
+<li>
+        <a href="/categories.html#h-%EC%97%B0%EB%A7%90%EC%A0%95%EC%82%B0">
+          연말정산 <span>1</span>
+        </a>
+      </li>
+</ul>
+</div>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/%20/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div class="left-right">
+        <span><span class="copyleft">©</span> 2021-2022 Nuri Jung, licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0 International</a>.
+          <span class="tie footer-icon"><i class="fa-brands fa-creative-commons" style="margin-left: 3px;"></i><i class="fa-brands fa-creative-commons-by" style="margin-left: 3px;"></i><i class="fa-brands fa-creative-commons-sa" style="margin-left: 3px;"></i></span>
+        </span>
+        <span class="tie-block">
+          <a class="footer-icon" href="mailto:jnooree@snu.ac.kr">
+            <i class="fa-solid fa-envelope-square"></i></a><a class="footer-icon" href="https://github.com/jnooree" style="margin-left:1em;"><i class="fa-brands fa-github"></i></a><a class="footer-icon" href="https://facebook.com/jnooree" style="margin-left:1em;"><i class="fa-brands fa-facebook"></i></a><a class="footer-icon" href="https://twitter.com/jnooree97" style="margin-left:1em;"><i class="fa-brands fa-twitter"></i></a><a class="footer-icon" href="https://instagram.com/jnooree" style="margin-left:1em;"><i class="fa-brands fa-instagram"></i></a><a class="footer-icon" href="/feed.xml" style="margin-left:1em;">
+            <i class="fa-solid fa-rss-square"></i></a>
+        </span>
+      </div>
+      <div class="powered-by">Powered by
+        <a title="Jekyll is a simple, blog-aware, static site generator." href="https://jekyllrb.com/">Jekyll</a>,
+        <a title="Yat, yet
+            another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>,
+        <a href="https://fontawsome.com">Font Awesome</a> &amp;
+        <a href="https://freedns.afraid.org">Free DNS</a> service.
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

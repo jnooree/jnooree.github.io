@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Manipulating paths in Python | blog.jnoor.ee</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Manipulating paths in Python">
+<meta name="author" content="Nuri Jung">
+<meta property="og:locale" content="ko">
+<meta name="description" content="Package index">
+<meta property="og:description" content="Package index">
+<link rel="canonical" href="https://blog.jnoor.ee/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html">
+<meta property="og:url" content="https://blog.jnoor.ee/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html">
+<meta property="og:site_name" content="blog.jnoor.ee">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-07-19T20:44:20+09:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Manipulating paths in Python">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Nuri Jung"},"dateModified":"2022-07-19T22:56:45+09:00","datePublished":"2022-07-19T20:44:20+09:00","description":"Package index","headline":"Manipulating paths in Python","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.jnoor.ee/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html"},"url":"https://blog.jnoor.ee/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="https://blog.jnoor.ee/feed.xml" title="blog.jnoor.ee">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script><script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+</head>
+<body>
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <i class="fa-brands fa-dev site-favicon" title="blog.jnoor.ee" onerror="this.style.display='none'"></i>
+  blog.jnoor.ee
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/">HOME</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/tags.html">TAGS</a><a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/src">SOURCE</a>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle-wrapper">
+  <div class="theme-toggle">
+    <input type="checkbox" id="theme-switch">
+    <label for="theme-switch">
+      <div class="toggle"></div>
+      <div class="names">
+        <p class="light">Light</p>
+        <p class="dark">Dark</p>
+      </div>
+    </label>
+  </div>
+</div>
+<script>
+  (function () {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+      ? localStorage
+      : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch (e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function () {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <= 7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function () {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function (event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa-solid fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      } else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+    <div class="post">
+  <section><header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">Manipulating paths in Python</h1>
+  <h2 class="post-subtitle">The beauty of the object-oriented paths</h2>
+
+  <div class="left-right">
+<span class="post-tags tie-block"><a class="post-tag" href="/tags.html#dev">#dev</a><a class="post-tag" href="/tags.html#python">#python</a></span>
+<span class="post-meta tie-block">
+      <time class="dt-published" datetime="2022-07-19T20:44:20+09:00" itemprop="datePublished"><i class="fa-solid fa-calendar-day"></i>
+        2022-07-19 08:44 PM</time><span class="left-vsplit"><i class="fa-solid fa-pen-to-square"></i>
+        2022-07-19 10:56:45 PM</span><span class="post-reading-time left-vsplit"><i class="fa-regular fa-clock"></i>
+        About 22 mins</span>
+    </span>
+  </div>
+
+</header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="package-index">Package index</h2>
+
+<ul>
+  <li>
+<a href="https://docs.python.org/3/library/pathlib.html"><code class="language-plaintext highlighter-rouge">pathlib</code></a><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>
+</li>
+  <li><a href="https://docs.python.org/3/library/shutil.html"><code class="language-plaintext highlighter-rouge">shutil</code></a></li>
+  <li><a href="https://docs.python.org/3/library/tempfile.html"><code class="language-plaintext highlighter-rouge">tempfile</code></a></li>
+</ul>
+
+<h2 id="object-oriented-filesystem-paths">Object-oriented filesystem paths</h2>
+
+<p>이 글을 읽고 나면, 여러분이 작성하시는 코드는 대부분 이 줄을 포함하게 될 겁니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+</code></pre></div></div>
+
+<h3 id="what-is-pathlib">What is <code class="language-plaintext highlighter-rouge">pathlib</code>?</h3>
+
+<p>Python 개발자들이 붙인 부제가 아주 잘 설명하고 있듯이, <code class="language-plaintext highlighter-rouge">pathlib</code>은 object-oriented filesystem path(<code class="language-plaintext highlighter-rouge">Path</code>)를 제공합니다. 다른 말로 하면, 이 라이브러리를 사용하면 파일 및 경로를 별도의 object로 다룰 수 있게 됩니다.</p>
+
+<h3 id="path-object-initialization">Path object initialization</h3>
+
+<p>모든 object는 어떤 식으로든지 생성되어야 합니다. <code class="language-plaintext highlighter-rouge">Path</code> object를 생성하는 방법은 여러 가지가 있습니다만, 자주 사용되는 방법은 다음과 같습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># p points to any/path/you/want
+</span><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"any/path/you/want"</span><span class="p">)</span>
+<span class="c1"># Also works with segments
+</span><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"any"</span><span class="p">,</span> <span class="s">"path"</span><span class="p">,</span> <span class="s">"you"</span><span class="p">,</span> <span class="s">"want"</span><span class="p">)</span>
+<span class="c1"># Current working directory
+</span><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">cwd</span><span class="p">()</span>
+<span class="c1"># Home directory; since 3.5 (Sep 2015)
+</span><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">home</span><span class="p">()</span>
+<span class="c1"># Home directory of user jnooree; since 3.5 (Sep 2015)
+</span><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">home</span><span class="p">(</span><span class="s">"~jnooree"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="properties-of-path-object">Properties of Path object</h3>
+
+<p>대부분의 object는 property도 가지죠. <code class="language-plaintext highlighter-rouge">Path</code> object의 경우에는 다음과 같은 유용한 property를 가집니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"any"</span><span class="p">,</span> <span class="s">"path"</span><span class="p">,</span> <span class="s">"you"</span><span class="p">,</span> <span class="s">"want"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span>
+<span class="n">PosixPath</span><span class="p">(</span><span class="s">'any/path/you/want'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">parts</span>
+<span class="p">[</span><span class="s">'any'</span><span class="p">,</span> <span class="s">'path'</span><span class="p">,</span> <span class="s">'you'</span><span class="p">,</span> <span class="s">'want'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">parent</span>
+<span class="n">PosixPath</span><span class="p">(</span><span class="s">'any/path/you'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">PosixPath</span><span class="p">(</span><span class="s">'any/path'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>  <span class="c1"># Since 3.10 (Oct 2021)
+</span><span class="p">(</span><span class="n">PosixPath</span><span class="p">(</span><span class="s">'any'</span><span class="p">),</span> <span class="n">PosixPath</span><span class="p">(</span><span class="s">'.'</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo/bar.dir"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">name</span>
+<span class="s">'bar.dir'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">stem</span>
+<span class="s">'bar'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">suffix</span>
+<span class="s">'.dir'</span>
+</code></pre></div></div>
+
+<p>이들 중에서는 특히 <code class="language-plaintext highlighter-rouge">Path.parent</code>, <code class="language-plaintext highlighter-rouge">Path.name</code>, <code class="language-plaintext highlighter-rouge">Path.stem</code> 등이 굉장히 자주, 또 유용하게 사용됩니다.</p>
+
+<h3 id="path-manipulations">Path manipulations</h3>
+
+<p>이제 <code class="language-plaintext highlighter-rouge">Path</code> object를 어떻게 다루는지도 살펴봅시다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo/bar.dir"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">/</span> <span class="s">"baz.txt"</span>
+<span class="n">PosixPath</span><span class="p">(</span><span class="s">'foo/bar.dir/baz.txt'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s">"baz"</span><span class="p">,</span> <span class="s">"qux.txt"</span><span class="p">)</span>
+<span class="n">PosixPath</span><span class="p">(</span><span class="s">'foo/bar.dir/baz/qux.txt'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">with_name</span><span class="p">(</span><span class="s">"quux"</span><span class="p">)</span>
+<span class="n">PosixPath</span><span class="p">(</span><span class="s">'foo/quux'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">with_stem</span><span class="p">(</span><span class="s">"quz"</span><span class="p">)</span>  <span class="c1"># Since 3.9 (Oct 2020)
+</span><span class="n">PosixPath</span><span class="p">(</span><span class="s">'foo/quz.dir'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s">".d"</span><span class="p">)</span>
+<span class="n">PosixPath</span><span class="p">(</span><span class="s">'foo/bar.d'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">resolve</span><span class="p">()</span>  <span class="c1"># Make path absolute
+</span><span class="n">PosixPath</span><span class="p">(</span><span class="s">'/home/jnooree/foo/bar.dir'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">strict</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  <span class="c1"># Since 3.6 (Dec 2016)
+</span><span class="nb">FileNotFoundError</span><span class="p">:</span> <span class="p">[</span><span class="n">Errno</span> <span class="mi">2</span><span class="p">]</span> <span class="n">No</span> <span class="n">such</span> <span class="nb">file</span> <span class="ow">or</span> <span class="n">directory</span><span class="p">:</span> <span class="p">...</span>
+</code></pre></div></div>
+
+<p>이것만으로도 대부분의 경로와 관련된 상황을 전부 커버 가능합니다.</p>
+
+<p>특히 <code class="language-plaintext highlighter-rouge">Path.with_suffix()</code> method는 같은 이름의 다른 형식 파일을 생성할 때 유용한데요, computational chemistry 쪽에서는 파일 형식 변환을 자주 하기 때문에 굉장히 많이 쓰입니다. Python 3.9에 추가된 <code class="language-plaintext highlighter-rouge">Path.with_stem()</code>는 반대로 파일 형식을 유지한 채로 전/후처리를 거친 파일의 이름을 약간만 바꿔주고 싶을 때 유용합니다. 예를 들면 다음과 같은 식으로요.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sdf</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo.sdf"</span><span class="p">)</span>
+<span class="n">mol2</span> <span class="o">=</span> <span class="n">sdf</span><span class="p">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s">".mol2"</span><span class="p">)</span>  <span class="c1"># foo.mol2
+</span><span class="n">mol2_3d</span> <span class="o">=</span> <span class="n">mol2</span><span class="p">.</span><span class="n">with_stem</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">mol2</span><span class="p">.</span><span class="n">stem</span><span class="si">}</span><span class="s">_3d"</span><span class="p">)</span>  <span class="c1"># foo_3d.mol2
+</span></code></pre></div></div>
+
+<h3 id="querying-metadata">Querying metadata</h3>
+
+<p>파일이 실제로 디스크에 존재하는지 <del>폰파일은 아닌지</del> 확인하는 등, 해당 경로의 metadata를 확인하는 method도 유용하게 사용 가능합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo/bar.txt"</span><span class="p">)</span>
+<span class="c1"># Check if the path exists
+</span><span class="n">p</span><span class="p">.</span><span class="n">exists</span><span class="p">()</span>
+<span class="c1"># Check if the path exists and is a directory (or a symlink to a directory)
+</span><span class="n">p</span><span class="p">.</span><span class="n">is_dir</span><span class="p">()</span>
+<span class="c1"># Check if the path exists and is a file (or a symlink to a file)
+</span><span class="n">p</span><span class="p">.</span><span class="n">is_file</span><span class="p">()</span>
+<span class="c1"># Check if the path is an absolute path
+</span><span class="n">p</span><span class="p">.</span><span class="n">is_absolute</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="directory-related-operations">Directory related operations</h3>
+
+<p>Bash나 zsh 등의 shell에서는 어떤 디렉토리 내부의 모든 파일에 대해 무언가를 실행하는 것이 용이하지만, Python에서 비슷한 방식으로 작업하기는 그리 간단하지 않습니다. <code class="language-plaintext highlighter-rouge">pathlib</code>이 여기에서도 구원투수로 등판합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo/bar"</span><span class="p">)</span>
+<span class="c1"># Equivalent to mkdir foo/bar
+</span><span class="n">d</span><span class="p">.</span><span class="n">mkdir</span><span class="p">()</span>
+<span class="c1"># Equivalent to mkdir -p foo/bar; since 3.5 (Sep 2015)
+</span><span class="n">d</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># Iterator of directory contents
+</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">d</span><span class="p">.</span><span class="n">iterdir</span><span class="p">():</span> <span class="p">...</span>
+<span class="c1"># Iterator of directory contents, matching a glob pattern
+</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">d</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="s">"*.txt"</span><span class="p">):</span> <span class="p">...</span>
+<span class="c1"># Recursive globbing is also supported
+</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">d</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="s">"**/*.txt"</span><span class="p">):</span> <span class="p">...</span>
+</code></pre></div></div>
+
+<h3 id="file-related-operations">File related operations</h3>
+
+<p>디렉토리가 있으면 파일도 있어야겠죠?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">text</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo/bar.txt"</span><span class="p">)</span>
+<span class="c1"># Equivalent to open(text)
+</span><span class="k">with</span> <span class="n">text</span><span class="p">.</span><span class="nb">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+        <span class="p">...</span>
+
+<span class="c1"># Whole file contents as a string; since 3.5 (Sep 2015)
+</span><span class="n">content</span> <span class="o">=</span> <span class="n">text</span><span class="p">.</span><span class="n">read_text</span><span class="p">()</span>
+<span class="c1"># Write a string to a file; since 3.5 (Sep 2015)
+</span><span class="n">text</span><span class="p">.</span><span class="n">write_text</span><span class="p">(</span><span class="s">"Hello, world!</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>물론 첫 번째 예시에서 <code class="language-plaintext highlighter-rouge">Path.open()</code> method 대신 기존과 동일하게 built-in <code class="language-plaintext highlighter-rouge">open()</code> 함수를 사용해도 됩니다<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>. 두번째 예시의 경우 간단한 파일 입출력에서 아주 유용하게 사용 가능합니다. 단, <code class="language-plaintext highlighter-rouge">Path.write_text()</code>는 항상 write mode로 파일을 열기 때문에 동일한 파일에 여러 번 호출하면 <strong>안 됩니다</strong>. <code class="language-plaintext highlighter-rouge">Path.read_text()</code>는 매우 큰 파일에 대해 실행할 경우 메모리 문제가 발생할 수 있다는 것도 기억해 두면 좋습니다.</p>
+
+<h3 id="moving-files-around">Moving files around</h3>
+
+<p>또 shell에서는 쉽지만 Python에서 어려운 작업이 파일/디렉토리를 이동하거나 삭제하는 것인데요, 일부 작업은 <code class="language-plaintext highlighter-rouge">Path</code> object로 실행 가능합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo/bar"</span><span class="p">)</span>
+<span class="c1"># Rename foo/bar to baz (cannot overwrite directory)
+</span><span class="n">p</span><span class="p">.</span><span class="n">rename</span><span class="p">(</span><span class="s">"baz"</span><span class="p">)</span>
+<span class="c1"># Force rename foo/bar to baz
+</span><span class="n">p</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"baz"</span><span class="p">)</span>
+
+<span class="c1"># For files:
+# Equivalent to rm foo/bar
+</span><span class="n">p</span><span class="p">.</span><span class="n">unlink</span><span class="p">()</span>
+<span class="c1"># Equivalent to rm -f foo/bar; since 3.8 (Oct 2019)
+</span><span class="n">p</span><span class="p">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># For *empty* directories:
+# Equivalent to rmdir foo/bar
+</span><span class="n">p</span><span class="p">.</span><span class="n">rmdir</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>이보다 복잡한 파일 및 디렉토리 복사/이동/삭제 작업은 <code class="language-plaintext highlighter-rouge">pathlib</code> 모듈만으로는 불가능합니다.</p>
+
+<h2 id="high-level-file-operations">High-level file operations</h2>
+
+<p>그래서 많은 사람들이 이런 코드를 사용합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">"rm -rf foo/bar"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>그러나 <code class="language-plaintext highlighter-rouge">os.system()</code> 함수는 되도록이면 사용을 지양하는 것이 좋습니다.</p>
+
+<h3 id="whats-wrong-with-ossystem">What’s wrong with <code class="language-plaintext highlighter-rouge">os.system()</code>?</h3>
+
+<p>가장 큰 문제는 별도의 보호장치가 없다는 것입니다. 예를 들어, 코딩 중에 다음과 같이 오타를 냈다고 생각해 봅시다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#                 ↓ Oops!
+</span><span class="n">p</span> <span class="o">=</span> <span class="s">"/home/jnooree /foo/bar"</span>
+<span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s">"rm -rf </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>축하합니다! 여러분의 <strong>홈 폴더가 통째로 사라졌군요</strong>. 이런 일이 실제로는 절대로 일어나지 않는다고 생각하신다면, 안타깝게도 틀렸습니다. 아주 유명한 사례로, Ubuntu에서 특정 오픈소스 패키지를 설치하면 설치 과정에서 <code class="language-plaintext highlighter-rouge">/usr</code> 디렉토리를 <del>친절하게도</del> <a href="https://github.com/MrMEEE/bumblebee-Old-and-abbandoned/issues/123">통째로 삭제해서 컴퓨터를 아주 깨끗하게 만들어 줬던 적이 있습니다</a><sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>. 해당 사례에서도 space 하나가 문제가 되었죠.</p>
+
+<p>그래서 <code class="language-plaintext highlighter-rouge">os.system()</code>과 같이 주어진 문자열을 아무런 처리 없이 곧바로 실행하는 함수는 쓰지 않는 것이 좋습니다. 추가적인 논의는 이후 게시할 <code class="language-plaintext highlighter-rouge">subprocess</code> 모듈을 다루는 글에서 보실 수 있습니다.</p>
+
+<h3 id="the-rescue-shutil">The rescue: <code class="language-plaintext highlighter-rouge">shutil</code>
+</h3>
+
+<p>저런 일 당하지 말라고 Python에는 <code class="language-plaintext highlighter-rouge">shutil</code> 모듈이 포함되어 있습니다. 앞서 언급했던 <code class="language-plaintext highlighter-rouge">pathlib</code> 모듈로는 불가능한 파일 및 디렉토리 복사/이동/삭제 작업에 특화되어 있는 모듈이죠.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">shutil</span>
+
+<span class="c1"># Copy file data and permission
+</span><span class="n">shutil</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="s">"src.txt"</span><span class="p">,</span> <span class="s">"dst.txt"</span><span class="p">)</span>
+<span class="c1"># Copy file dat and metadata (modified time, ...)
+</span><span class="n">shutil</span><span class="p">.</span><span class="n">copy2</span><span class="p">(</span><span class="s">"src.txt"</span><span class="p">,</span> <span class="s">"dst.txt"</span><span class="p">)</span>
+<span class="c1"># cp -a src dst, except raises error if dst exists
+</span><span class="n">shutil</span><span class="p">.</span><span class="n">copytree</span><span class="p">(</span><span class="s">"src"</span><span class="p">,</span> <span class="s">"dst"</span><span class="p">)</span>
+<span class="c1"># rsync -a src/ dst/; since 3.8 (Oct 2019)
+</span><span class="n">shutil</span><span class="p">.</span><span class="n">copytree</span><span class="p">(</span><span class="s">"src"</span><span class="p">,</span> <span class="s">"dst"</span><span class="p">,</span> <span class="n">dirs_exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># rm -r src
+</span><span class="n">shutil</span><span class="p">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s">"src"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="generate-temporary-files-and-directories">Generate temporary files and directories</h2>
+
+<p>코딩을 하다 보면 가끔 임시로 사용하는 파일이나 디렉토리를 생성해야 하는 경우가 있습니다. 보통은 이런 방식을 사용하실 텐데요, 다른 사용자나 프로세스가 동일한 이름의 파일이나 디렉토리를 수정하려고 시도할 수 있기 때문에 권장하지 않습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Temporary file
+</span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"temp.txt"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="p">...</span>
+
+<span class="c1"># Temporary directory
+</span><span class="n">os</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s">"temp"</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">"rm -rf temp"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>대신 임시 파일 또는 디렉토리를 <strong>최대한 안전하게</strong> 생성해 주는 <code class="language-plaintext highlighter-rouge">tempfile</code> 모듈을 사용하세요.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="c1"># "Safe" way to write to a temporary file
+</span><span class="k">with</span> <span class="n">tempfile</span><span class="p">.</span><span class="n">TemporaryFile</span><span class="p">(</span><span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="p">...</span>
+
+<span class="c1"># If file name should be used afterwards, then
+</span><span class="k">with</span> <span class="n">tempfile</span><span class="p">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">foo</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="p">...</span>
+
+<span class="c1"># For temporary directories; since 3.2 (Feb 2011)
+</span><span class="k">with</span> <span class="n">tempfile</span><span class="p">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">dirname</span><span class="p">:</span>
+    <span class="p">...</span>
+</code></pre></div></div>
+
+<p>해당 context를 벗어나면 자동으로 생성했던 임시 파일 또는 디렉토리(와 그 안에 있는 모든 것)를 삭제합니다.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>Since Python 3.4 (Mar 2014) <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><code class="language-plaintext highlighter-rouge">open()</code>뿐만 아니라, Python standard library에서 제공하는 대부분의 함수나 method에서 경로와 관련된 argument에는 <code class="language-plaintext highlighter-rouge">str</code> 타입과 <code class="language-plaintext highlighter-rouge">Path</code> 타입을 모두 사용할 수 있습니다. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>리눅스에서 <code class="language-plaintext highlighter-rouge">/usr</code> 디렉토리는 과장 좀 보태면 윈도의 <code class="language-plaintext highlighter-rouge">C</code> 드라이브와 비슷한 역할을 합니다. 전부 날려먹었으니 시스템이 통으로 망가지고 <del>가정이 무너지고 사회가 무너지고</del> 부팅이 안 되는건 당연하겠죠? <a href="#fnref:3" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+
+    </div>
+
+</article>
+<hr class="sub-separator">
+    <div class="post-nav">
+      <span><i class="fa-solid fa-angle-left"></i>
+        <a class="previous" href="/exploring%20the%20python%20standard%20library/2022/07/18/py-stdlib-builtins.html" title="More about built-ins">More about built-ins</a></span>
+      <span></span>
+    </div>
+<hr class="sub-separator">
+    <div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/18/py-stdlib-builtins.html" title="">More about built-ins</a></li>
+<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/09/exploring-py-stdlib-intro.html" title="">Exploring the Python Standard Library</a></li>
+<li><a class="post-link" href="/general/2022/01/01/initial-post.html" title="">개발 블로그 시작했습니다</a></li>
+<li><a class="post-link" href="/%EC%97%B0%EB%A7%90%EC%A0%95%EC%82%B0/2021/12/31/year-end-settlement.html" title="">2021 연말정산</a></li>
+</ul>
+    </div>
+<div class="post-comments">
+<div id="utterances-placeholder"></div>
+<script>
+  const utterancesThemeFromDataTheme = () => {
+    const dataTheme = document.documentElement.getAttribute('data-theme');
+    return `github-${dataTheme}`;
+  };
+
+  const setUtterancesTheme = () => {
+    const iframe = document.querySelector('.utterances-frame');
+    if (iframe) {
+      const message = {
+        type: 'set-theme',
+        theme: utterancesThemeFromDataTheme()
+      };
+      iframe.contentWindow.postMessage(message, 'https://utteranc.es');
+    }
+  }
+
+  // dynamic change
+  const observer = new MutationObserver((mutationsList, observer) => {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+        setUtterancesTheme();
+      }
+    }
+  });
+  observer.observe(document.documentElement, { attributes: true, childList: false, subtree: false });
+
+  let utterancesScript = document.createElement('script');
+  utterancesScript.async = true;
+  utterancesScript.src = 'https://utteranc.es/client.js';
+  utterancesScript.crossOrigin = 'anonymous';
+  utterancesScript.setAttribute('issue-term', 'pathname');
+  utterancesScript.setAttribute('label', 'comment');
+  utterancesScript.setAttribute('repo', 'jnooree/jnooree.github.io');
+  utterancesScript.setAttribute('theme', utterancesThemeFromDataTheme());
+
+  const placeholder = document.getElementById('utterances-placeholder');
+  placeholder.parentNode.replaceChild(utterancesScript, placeholder);
+</script>
+</div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      const h = headings[i];
+      let textContent = "";
+
+      h.childNodes.forEach((value) => {
+        if (value.nodeType !== Node.ELEMENT_NODE || value.role !== "doc-noteref") {
+          textContent += value.textContent;
+        }
+      });
+
+      menuHTML += `<li class="h-${h.tagName.toLowerCase()}"><a href="#h-${h.getAttribute('id')}">${textContent}</a></li>`;
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/%20/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div class="left-right">
+        <span><span class="copyleft">©</span> 2021-2022 Nuri Jung, licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0 International</a>.
+          <span class="tie footer-icon"><i class="fa-brands fa-creative-commons" style="margin-left: 3px;"></i><i class="fa-brands fa-creative-commons-by" style="margin-left: 3px;"></i><i class="fa-brands fa-creative-commons-sa" style="margin-left: 3px;"></i></span>
+        </span>
+        <span class="tie-block">
+          <a class="footer-icon" href="mailto:jnooree@snu.ac.kr">
+            <i class="fa-solid fa-envelope-square"></i></a><a class="footer-icon" href="https://github.com/jnooree" style="margin-left:1em;"><i class="fa-brands fa-github"></i></a><a class="footer-icon" href="https://facebook.com/jnooree" style="margin-left:1em;"><i class="fa-brands fa-facebook"></i></a><a class="footer-icon" href="https://twitter.com/jnooree97" style="margin-left:1em;"><i class="fa-brands fa-twitter"></i></a><a class="footer-icon" href="https://instagram.com/jnooree" style="margin-left:1em;"><i class="fa-brands fa-instagram"></i></a><a class="footer-icon" href="/feed.xml" style="margin-left:1em;">
+            <i class="fa-solid fa-rss-square"></i></a>
+        </span>
+      </div>
+      <div class="powered-by">Powered by
+        <a title="Jekyll is a simple, blog-aware, static site generator." href="https://jekyllrb.com/">Jekyll</a>,
+        <a title="Yat, yet
+            another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>,
+        <a href="https://fontawsome.com">Font Awesome</a> &amp;
+        <a href="https://freedns.afraid.org">Free DNS</a> service.
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
