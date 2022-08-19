@@ -24,12 +24,16 @@ fi
 echo "Deploying to ${REPOSITORY} on branch ${BRANCH}"
 echo "Deploying to https://${ACTOR}:${TOKEN}@github.com/${REPOSITORY}.git"
 
-REMOTE_REPO="https://${ACTOR}:${TOKEN}@github.com/${REPOSITORY}.git" && \
-  git init && \
-  git config user.name "${ACTOR}" && \
-  git config user.email "${ACTOR}@users.noreply.github.com" && \
-  git add . && \
-  git commit -m "jekyll build from Action ${GITHUB_SHA}" && \
-  git push --force "$REMOTE_REPO" "master:$BRANCH"
+REMOTE_REPO="https://${ACTOR}:${TOKEN}@github.com/${REPOSITORY}.git"
+
+git init -b "${BRANCH}"
+git config user.name "${ACTOR}"
+git config user.email "${ACTOR}@users.noreply.github.com"
+git remote add origin "${REMOTE_REPO}"
+git fetch origin "${BRANCH}"
+git reset "origin/${BRANCH}"
+git add .
+git commit -m "jekyll build from Action ${GITHUB_SHA}"
+git push --force "$REMOTE_REPO" "$BRANCH"
 
 cd ..
