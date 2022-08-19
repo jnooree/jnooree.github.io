@@ -4,6 +4,7 @@
 
 set -euo pipefail
 
+: "${REPOSITORY:=${GITHUB_REPOSITORY}}"
 : "${BRANCH:=gh-pages}"
 : "${ACTOR:=${GITHUB_ACTOR}}"
 
@@ -15,16 +16,12 @@ if [[ "${REPOSITORY}" = "${GITHUB_REPOSITORY}" ]]; then
   fi
 fi
 
-# Tell GitHub Pages not to run Jekyll
-touch .nojekyll
-if [[ -n "${INPUT_CNAME-}" ]]; then
-	echo "$INPUT_CNAME" > CNAME
-fi
-
 echo "Deploying to ${REPOSITORY} on branch ${BRANCH}"
 echo "Deploying to https://${ACTOR}:${TOKEN}@github.com/${REPOSITORY}.git"
 
 REMOTE_REPO="https://${ACTOR}:${TOKEN}@github.com/${REPOSITORY}.git"
+
+pushd _site
 
 git init -b "${BRANCH}"
 git config user.name "${ACTOR}"
@@ -36,4 +33,4 @@ git add .
 git commit -m "jekyll build from Action ${GITHUB_SHA}"
 git push --force "$REMOTE_REPO" "$BRANCH"
 
-cd ..
+popd

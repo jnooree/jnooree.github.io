@@ -1,0 +1,122 @@
+name: Github Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - .github/scripts/tweet.py
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v1
+
+      - run: bundle exec jekyll build -b ${{ steps.pages.outputs.base_path }}
+        env:
+          JEKYLL_ENV: production
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+
+      - run: .github/scripts/upload_history.sh
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    outputs:
+      page-url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+
+  get-new-files:
+    needs: build
+    if: "!github.event.repository.private"
+    outputs:
+      has-new: ${{ steps.added-files.outputs.has-new }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          fetch-depth: 2
+
+      - name: Get added files list
+        id: added-files
+        run: |
+          git diff -z --name-only --diff-filter=A HEAD~ -- '**/*.html' >new-files.txt
+          echo -n "::set-output name=has-new::"
+          if (( $(stat --printf="%s" new-files.txt) > 0 )); then
+            echo "true"
+          else
+            echo "false"
+          fi
+
+      - uses: actions/upload-artifact@v3
+        if: "steps.added-files.outputs.has-new == 'true'"
+        with:
+          name: new-files
+          path: new-files.txt
+
+  tweet:
+    needs:
+      - deploy
+      - get-new-files
+    if: "needs.get-new-files.outputs.has-new == 'true'"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup python
+        uses: actions/setup-python@v4
+
+      - name: Install tweepy
+        run: python -m pip install -U tweepy
+
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - uses: actions/download-artifact@v3
+        id: download
+        with:
+          name: new-files
+
+      - name: Tweet new files
+        run: |
+          xargs -0 python .github/scripts/tweet.py <new-files.txt
+        env:
+          PAGE_URL: ${{ needs.deploy.outputs.page-url }}
+          TWITTER_CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+          TWITTER_CONSUMER_API_SECRET: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}

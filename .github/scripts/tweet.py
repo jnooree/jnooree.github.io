@@ -3,7 +3,6 @@ import sys
 from pathlib import Path
 
 import tweepy
-import yaml
 
 
 def getenvs():
@@ -13,18 +12,15 @@ def getenvs():
             "access_token_secret": os.environ["TWITTER_ACCESS_TOKEN_SECRET"]}
 
 
-def geturl():
-    with open("_config.yml") as f:
-        return yaml.safe_load(f)["url"]
-
-
 def main():
     files = sys.argv[1:]
     if not files:
         print("No new files")
         return
 
-    url = geturl()
+    print(f"{len(files)} new articles were created")
+
+    url = os.environ["PAGE_URL"].rstrip("/")
     client = tweepy.Client(**getenvs())
     for file in files:
         p = Path(file).relative_to(".")
