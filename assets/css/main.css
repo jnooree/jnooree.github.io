@@ -272,7 +272,9 @@ html[data-scroll-status="down"] .framework .sidebar { top: 20px; }
 
 @media screen and (max-width: 1250px) { .post .post-content h4 { font-size: 17.6px; } }
 
-.post .post-content img, .post .post-content svg, .post .post-content iframe { margin-left: auto; margin-right: auto; display: block; }
+.post .post-content img, .post .post-content svg, .post .post-content iframe { margin-left: auto; margin-right: auto; }
+
+.post .post-content img:not(.emoji), .post .post-content svg, .post .post-content iframe { display: block; }
 
 .post .post-content h2, .post .post-content h3, .post .post-content h4, .post .post-content h5, .post .post-content h6 { margin: 30px 0 19px; }
 
@@ -457,7 +459,7 @@ html[data-theme="dark"] .post hr.sub-separator { background-color: #545454; }
 
 html[data-theme="dark"] .post .post-header { border-bottom: 1px solid #bbb; }
 
-html[data-theme="dark"] .post .post-content img:not([raw]) { background-color: #ffffff33; }
+html[data-theme="dark"] .post .post-content img:not(.emoji):not([raw]) { background-color: #ffffff33; }
 
 html[data-theme="dark"] .post .footnotes::before { background-color: #545454; }
 
