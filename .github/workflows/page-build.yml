@@ -31,7 +31,7 @@ jobs:
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v1
+        uses: actions/configure-pages@v2
 
       - run: bundle exec jekyll build -b ${{ steps.pages.outputs.base_path }}
         env:
