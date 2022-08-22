@@ -21,7 +21,7 @@ echo "Deploying to https://${ACTOR}:${TOKEN}@github.com/${REPOSITORY}.git"
 
 REMOTE_REPO="https://${ACTOR}:${TOKEN}@github.com/${REPOSITORY}.git"
 
-pushd _site
+pushd "${BASE_PATH:-.}/_site"
 
 git init -b "${BRANCH}"
 git config user.name "${ACTOR}"

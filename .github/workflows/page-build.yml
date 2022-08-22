@@ -43,6 +43,7 @@ jobs:
       - run: .github/scripts/upload_history.sh
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
   deploy:
     needs: build
