@@ -20,7 +20,7 @@ def main():
 
     print(f"{len(files)} new articles were created")
 
-    url = os.environ["PAGE_URL"].rstrip("/")
+    url = os.environ["PAGE_URL"]
     client = tweepy.Client(**getenvs())
     for file in files:
         p = Path(file).relative_to(".")
