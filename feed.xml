@@ -1,4 +1,116 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://blog.jnoor.ee/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.jnoor.ee/" rel="alternate" type="text/html" hreflang="ko" /><updated>2022-08-22T14:45:00+09:00</updated><id>https://blog.jnoor.ee/feed.xml</id><title type="html">blog.jnoor.ee</title><subtitle>Yet another dev blog?</subtitle><author><name>Nuri Jung</name></author><entry><title type="html">Manipulating paths in Python</title><link href="https://blog.jnoor.ee/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html" rel="alternate" type="text/html" title="Manipulating paths in Python" /><published>2022-07-19T20:44:20+09:00</published><updated>2022-07-19T22:56:45+09:00</updated><id>https://blog.jnoor.ee/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths</id><content type="html" xml:base="https://blog.jnoor.ee/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html"><![CDATA[<h2 id="package-index">Package index</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://blog.jnoor.ee/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.jnoor.ee/" rel="alternate" type="text/html" hreflang="ko" /><updated>2022-08-23T16:06:32+09:00</updated><id>https://blog.jnoor.ee/feed.xml</id><title type="html">blog.jnoor.ee</title><subtitle>Yet another dev blog?</subtitle><author><name>Nuri Jung</name></author><entry><title type="html">Collections</title><link href="https://blog.jnoor.ee/exploring%20the%20python%20standard%20library/2022/08/23/py-stdlib-collections.html" rel="alternate" type="text/html" title="Collections" /><published>2022-08-23T14:35:05+09:00</published><updated>2022-08-23T15:56:28+09:00</updated><id>https://blog.jnoor.ee/exploring%20the%20python%20standard%20library/2022/08/23/py-stdlib-collections</id><content type="html" xml:base="https://blog.jnoor.ee/exploring%20the%20python%20standard%20library/2022/08/23/py-stdlib-collections.html"><![CDATA[<h2 id="package-index">Package index</h2>
+
+<ul>
+  <li><a href="https://docs.python.org/3/library/collections.html"><code class="language-plaintext highlighter-rouge">collections</code></a></li>
+</ul>
+
+<h2 id="defaultdict"><code class="language-plaintext highlighter-rouge">defaultdict</code></h2>
+
+<h3 id="a-common-workflow">A common workflow</h3>
+
+<p>어떤 리스트를 특정 조건을 만족하는 더 작은 리스트로 나누는 작업은 상당히 빈번하게 일어납니다. 대개는 아래와 같이 작성하게 되죠.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="s">"yellow"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s">"blue"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">"yellow"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">...]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">color</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">color</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">color</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">color</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="a-better-workflow">A better workflow</h3>
+
+<p>그러나 위와 같은 방식은 비교적 덜 자주 일어나는 “새로운 key를 만나는 경우”를 위해 모든 원소에 대해 조건문을 실행한다는 단점이 있습니다. 이를 개선하는 방법은 try-except 문을 통해 <code class="language-plaintext highlighter-rouge">KeyError</code>를 <a href="https://docs.python.org/3.5/glossary.html#term-eafp">처리하는 것입니다</a>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="s">"yellow"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s">"blue"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">"yellow"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">...]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">color</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">color</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">KeyError</span><span class="p">:</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">color</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="the-best-workflow">The best workflow</h3>
+
+<p>그러나 가장 좋은 방법은 애초에 python 코드를 적게 작성하는 것입니다. 이를 위해 <code class="language-plaintext highlighter-rouge">defaultdict</code>를 <a href="https://docs.python.org/3/library/collections.html#collections.defaultdict">사용할 수 있습니다</a>. 코드가 전체적으로 훨씬 깔끔해지고 가독성이 높아지는 것을 볼 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="s">"yellow"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s">"blue"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">"yellow"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">...]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">color</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+    <span class="n">d</span><span class="p">[</span><span class="n">color</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">defaultdict</code>는 <code class="language-plaintext highlighter-rouge">dict</code>의 subclass이기 때문에 <code class="language-plaintext highlighter-rouge">dict</code>의 모든 메서드를 사용할 수 있습니다.</p>
+
+<h3 id="benchmarks">Benchmarks</h3>
+
+<p>위의 세 가지 방법의 속도를 비교해보았습니다. <code class="language-plaintext highlighter-rouge">defaultdict</code>를 이용하면 최대 10%정도 속도 향상이 있는데, 이는 <code class="language-plaintext highlighter-rouge">defaultdict</code>는 <a href="https://github.com/python/cpython/blob/1499d73b3e02878850c007fa7298bb62f6c5a9a1/Modules/_collectionsmodule.c#L1955-L2269">C로 구현되어 있기 때문입니다</a>. 코드가 깔끔해지는 것 외에도 속도 향상까지 얻을 수 있는 셈이죠.</p>
+
+<figure class="image">
+	<img src="/assets/images/posts/exploring-python-stdlib/defaultdict-bench.png" alt="Tested on M1 mac mini (2020), Python 3.10.5" /><figcaption>Tested on M1 mac mini (2020), Python 3.10.5</figcaption></figure>
+
+<h2 id="counter"><code class="language-plaintext highlighter-rouge">Counter</code></h2>
+
+<h3 id="counting-occurrences">Counting occurrences</h3>
+
+<p>또 다른 자주 있는 작업은 리스트 원소의 빈도수를 세는 것입니다. 보통은 이렇게 작성하는 경우가 많습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="s">"foo"</span><span class="p">,</span> <span class="s">"bar"</span><span class="p">,</span> <span class="s">"bar"</span><span class="p">,</span> <span class="s">"baz"</span><span class="p">,</span> <span class="p">...]</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
+        <span class="n">c</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">c</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<h3 id="oh-defaultdict-my-defaultdict">Oh, <code class="language-plaintext highlighter-rouge">defaultdict</code>, my <code class="language-plaintext highlighter-rouge">defaultdict</code></h3>
+
+<p>물론 앞서 소개했던 <code class="language-plaintext highlighter-rouge">defaultdict</code>를 이용하면 더 깔끔하게 작성할 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="s">"foo"</span><span class="p">,</span> <span class="s">"bar"</span><span class="p">,</span> <span class="s">"bar"</span><span class="p">,</span> <span class="s">"baz"</span><span class="p">,</span> <span class="p">...]</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+    <span class="n">c</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<h3 id="use-the-right-tool">Use <em>the</em> right tool</h3>
+
+<p>하지만 이런 작업은 워낙 자주 사용되어서 모든 것을 아예 자동으로 처리해주는 <code class="language-plaintext highlighter-rouge">Counter</code>가 <a href="https://docs.python.org/3/library/collections.html#collections.Counter">준비되어 있습니다</a>.<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="s">"foo"</span><span class="p">,</span> <span class="s">"bar"</span><span class="p">,</span> <span class="s">"bar"</span><span class="p">,</span> <span class="s">"baz"</span><span class="p">,</span> <span class="p">...]</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Counter</code> 역시 <code class="language-plaintext highlighter-rouge">dict</code>의 subclass이기 때문에 <code class="language-plaintext highlighter-rouge">dict</code>의 모든 method를 사용할 수 있습니다. 또한 <code class="language-plaintext highlighter-rouge">Counter</code>는 <code class="language-plaintext highlighter-rouge">most_common</code> 등의 유용한 method를 제공한다는 추가적인 장점도 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="p">.</span><span class="n">most_common</span><span class="p">()</span>
+<span class="p">[(</span><span class="s">'bar'</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="s">'foo'</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="s">'baz'</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">...]</span>
+</code></pre></div></div>
+
+<h3 id="benchmarks-1">Benchmarks</h3>
+
+<p>위의 세 방법과 더불어 exception으로 처리한 방법까지 총 네 가지에 대해 속도를 비교해 보았습니다.</p>
+
+<figure class="image">
+	<img src="/assets/images/posts/exploring-python-stdlib/counter-bench.png" alt="Tested on M1 mac mini (2020), Python 3.10.5" /><figcaption>Tested on M1 mac mini (2020), Python 3.10.5</figcaption></figure>
+
+<p>지금까지 중 가장 드라마틱한 차이로, 2배 이상 빨라지는 것을 확인할 수 있습니다. 이것 역시 <code class="language-plaintext highlighter-rouge">Counter</code>의 핵심 부분이 <a href="https://github.com/python/cpython/blob/d6259c58cbb48b8f3fbd70047f004ea19fe91e86/Modules/_collectionsmodule.c#L2271-L2388">C로 구현되어 있기 때문이죠</a>.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>Available since Python 3.1 (Jun 2009). <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name>Nuri Jung</name></author><category term="Exploring the Python Standard Library" /><category term="dev" /><category term="python" /><summary type="html"><![CDATA[Package index]]></summary></entry><entry><title type="html">Manipulating paths in Python</title><link href="https://blog.jnoor.ee/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html" rel="alternate" type="text/html" title="Manipulating paths in Python" /><published>2022-07-19T20:44:20+09:00</published><updated>2022-07-19T22:56:45+09:00</updated><id>https://blog.jnoor.ee/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths</id><content type="html" xml:base="https://blog.jnoor.ee/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html"><![CDATA[<h2 id="package-index">Package index</h2>
 
 <ul>
   <li><a href="https://docs.python.org/3/library/pathlib.html"><code class="language-plaintext highlighter-rouge">pathlib</code></a><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></li>
