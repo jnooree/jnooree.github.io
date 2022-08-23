@@ -1,6 +1,7 @@
 import os
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
 import tweepy
 
@@ -20,11 +21,12 @@ def main():
 
     print(f"{len(files)} new articles were created")
 
-    url = os.environ["PAGE_URL"]
+    baseurl = os.environ["PAGE_URL"].rstrip("/")
     client = tweepy.Client(**getenvs())
     for file in files:
         p = Path(file).relative_to(".")
-        client.create_tweet(text=f"New article has arrived! {url}/{p}")
+        client.create_tweet(
+            text=f"New article has arrived! {baseurl}/{quote(str(p))}")
 
 
 if __name__ == "__main__":
