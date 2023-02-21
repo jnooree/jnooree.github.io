@@ -8,7 +8,7 @@
   <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>개발 블로그 시작했습니다 | blog.jnoor.ee</title>
-<meta name="generator" content="Jekyll v4.2.2">
+<meta name="generator" content="Jekyll v4.3.2">
 <meta property="og:title" content="개발 블로그 시작했습니다">
 <meta name="author" content="Nuri Jung">
 <meta property="og:locale" content="ko">
@@ -120,7 +120,121 @@ document.addEventListener('DOMContentLoaded', function(event) {
           </label>
 
           <div class="trigger">
-<a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/tags.html">TAGS</a><a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/src">SOURCE</a>
+<a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/tags.html">TAGS</a><a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/src">SOURCE</a><span class="page-link"><div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+<li>
+        <a href="#" class="lang-select" data-lang="en"><img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          </a>
+      </li>
+    <li>
+        <a href="#" class="lang-select" data-lang="fr"><img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          </a>
+      </li>
+    <li>
+        <a href="#" class="lang-select" data-lang="zh-CN"><img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          </a>
+      </li>
+    <li>
+        <a href="#" class="lang-select" data-lang="ja"><img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          </a>
+      </li>
+    <li>
+        <a href="#" class="lang-select" data-lang="ko"><img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          </a>
+      </li>
+    <li>
+        <a href="#" class="lang-select" data-lang="ru"><img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'ko',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
 </div>
         </nav>
 </div>
@@ -386,10 +500,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
     <div class="post-related">
       <div>Related Articles</div>
       <ul>
-<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/11/py-stdlib-syntax.html" title="도메인 샀습니다">Advanced Python Syntax</a></li>
 <li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/18/py-stdlib-builtins.html" title="도메인 샀습니다">More about built-ins</a></li>
-<li><a class="post-link" href="/general/2022/01/01/initial-post.html" title="도메인 샀습니다">개발 블로그 시작했습니다</a></li>
-<li><a class="post-link" href="/%EC%97%B0%EB%A7%90%EC%A0%95%EC%82%B0/2021/12/31/year-end-settlement.html" title="도메인 샀습니다">2021 연말정산</a></li>
+<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/11/py-stdlib-syntax.html" title="도메인 샀습니다">Advanced Python Syntax</a></li>
+<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/09/exploring-py-stdlib-intro.html" title="도메인 샀습니다">Exploring the Python Standard Library</a></li>
+<li><a class="post-link" href="/general/2022/01/03/my-domain.html" title="도메인 샀습니다">도메인 샀습니다</a></li>
 </ul>
     </div>
 <div class="post-comments">

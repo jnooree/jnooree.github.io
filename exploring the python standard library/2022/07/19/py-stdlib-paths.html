@@ -8,7 +8,7 @@
   <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Manipulating paths in Python | blog.jnoor.ee</title>
-<meta name="generator" content="Jekyll v4.2.2">
+<meta name="generator" content="Jekyll v4.3.2">
 <meta property="og:title" content="Manipulating paths in Python">
 <meta name="author" content="Nuri Jung">
 <meta property="og:locale" content="ko">
@@ -120,7 +120,121 @@ document.addEventListener('DOMContentLoaded', function(event) {
           </label>
 
           <div class="trigger">
-<a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/tags.html">TAGS</a><a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/src">SOURCE</a>
+<a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/tags.html">TAGS</a><a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/src">SOURCE</a><span class="page-link"><div id="google_translate_element" style="display: none;">
+</div>
+
+<span class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+<li>
+        <a href="#" class="lang-select" data-lang="en"><img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          </a>
+      </li>
+    <li>
+        <a href="#" class="lang-select" data-lang="fr"><img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          </a>
+      </li>
+    <li>
+        <a href="#" class="lang-select" data-lang="zh-CN"><img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          </a>
+      </li>
+    <li>
+        <a href="#" class="lang-select" data-lang="ja"><img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          </a>
+      </li>
+    <li>
+        <a href="#" class="lang-select" data-lang="ko"><img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          </a>
+      </li>
+    <li>
+        <a href="#" class="lang-select" data-lang="ru"><img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          </a>
+      </li>
+    
+  </ul>
+</span>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'ko',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</span>
 </div>
         </nav>
 </div>
@@ -362,7 +476,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <p>이 글을 읽고 나면, 여러분이 작성하시는 코드는 대부분 이 줄을 포함하게 될 겁니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 </code></pre></div></div>
 
 <h3 id="what-is-pathlib">What is <code class="language-plaintext highlighter-rouge">pathlib</code>?</h3>
@@ -374,33 +488,33 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <p>모든 object는 어떤 식으로든지 생성되어야 합니다. <code class="language-plaintext highlighter-rouge">Path</code> object를 생성하는 방법은 여러 가지가 있습니다만, 자주 사용되는 방법은 다음과 같습니다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># p points to any/path/you/want
-</span><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"any/path/you/want"</span><span class="p">)</span>
+</span><span class="n">p</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="s">"any/path/you/want"</span><span class="p">)</span>
 <span class="c1"># Also works with segments
-</span><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"any"</span><span class="p">,</span> <span class="s">"path"</span><span class="p">,</span> <span class="s">"you"</span><span class="p">,</span> <span class="s">"want"</span><span class="p">)</span>
+</span><span class="n">p</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="s">"any"</span><span class="p">,</span> <span class="s">"path"</span><span class="p">,</span> <span class="s">"you"</span><span class="p">,</span> <span class="s">"want"</span><span class="p">)</span>
 <span class="c1"># Current working directory
-</span><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">cwd</span><span class="p">()</span>
+</span><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="nf">cwd</span><span class="p">()</span>
 <span class="c1"># Home directory; since 3.5 (Sep 2015)
-</span><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">home</span><span class="p">()</span>
+</span><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="nf">home</span><span class="p">()</span>
 <span class="c1"># Home directory of user jnooree; since 3.5 (Sep 2015)
-</span><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="n">home</span><span class="p">(</span><span class="s">"~jnooree"</span><span class="p">)</span>
+</span><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">.</span><span class="nf">home</span><span class="p">(</span><span class="s">"~jnooree"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h3 id="properties-of-path-object">Properties of Path object</h3>
 
 <p>대부분의 object는 property도 가지죠. <code class="language-plaintext highlighter-rouge">Path</code> object의 경우에는 다음과 같은 유용한 property를 가집니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"any"</span><span class="p">,</span> <span class="s">"path"</span><span class="p">,</span> <span class="s">"you"</span><span class="p">,</span> <span class="s">"want"</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="s">"any"</span><span class="p">,</span> <span class="s">"path"</span><span class="p">,</span> <span class="s">"you"</span><span class="p">,</span> <span class="s">"want"</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">p</span>
-<span class="n">PosixPath</span><span class="p">(</span><span class="s">'any/path/you/want'</span><span class="p">)</span>
+<span class="nc">PosixPath</span><span class="p">(</span><span class="s">'any/path/you/want'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">parts</span>
 <span class="p">[</span><span class="s">'any'</span><span class="p">,</span> <span class="s">'path'</span><span class="p">,</span> <span class="s">'you'</span><span class="p">,</span> <span class="s">'want'</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">parent</span>
-<span class="n">PosixPath</span><span class="p">(</span><span class="s">'any/path/you'</span><span class="p">)</span>
+<span class="nc">PosixPath</span><span class="p">(</span><span class="s">'any/path/you'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">PosixPath</span><span class="p">(</span><span class="s">'any/path'</span><span class="p">)</span>
+<span class="nc">PosixPath</span><span class="p">(</span><span class="s">'any/path'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>  <span class="c1"># Since 3.10 (Oct 2021)
-</span><span class="p">(</span><span class="n">PosixPath</span><span class="p">(</span><span class="s">'any'</span><span class="p">),</span> <span class="n">PosixPath</span><span class="p">(</span><span class="s">'.'</span><span class="p">))</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo/bar.dir"</span><span class="p">)</span>
+</span><span class="p">(</span><span class="nc">PosixPath</span><span class="p">(</span><span class="s">'any'</span><span class="p">),</span> <span class="nc">PosixPath</span><span class="p">(</span><span class="s">'.'</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="s">"foo/bar.dir"</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">name</span>
 <span class="s">'bar.dir'</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">stem</span>
@@ -415,20 +529,20 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <p>이제 <code class="language-plaintext highlighter-rouge">Path</code> object를 어떻게 다루는지도 살펴봅시다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo/bar.dir"</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="s">"foo/bar.dir"</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">/</span> <span class="s">"baz.txt"</span>
-<span class="n">PosixPath</span><span class="p">(</span><span class="s">'foo/bar.dir/baz.txt'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s">"baz"</span><span class="p">,</span> <span class="s">"qux.txt"</span><span class="p">)</span>
-<span class="n">PosixPath</span><span class="p">(</span><span class="s">'foo/bar.dir/baz/qux.txt'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">with_name</span><span class="p">(</span><span class="s">"quux"</span><span class="p">)</span>
-<span class="n">PosixPath</span><span class="p">(</span><span class="s">'foo/quux'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">with_stem</span><span class="p">(</span><span class="s">"quz"</span><span class="p">)</span>  <span class="c1"># Since 3.9 (Oct 2020)
-</span><span class="n">PosixPath</span><span class="p">(</span><span class="s">'foo/quz.dir'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s">".d"</span><span class="p">)</span>
-<span class="n">PosixPath</span><span class="p">(</span><span class="s">'foo/bar.d'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">resolve</span><span class="p">()</span>  <span class="c1"># Make path absolute
-</span><span class="n">PosixPath</span><span class="p">(</span><span class="s">'/home/jnooree/foo/bar.dir'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">strict</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  <span class="c1"># Since 3.6 (Dec 2016)
+<span class="nc">PosixPath</span><span class="p">(</span><span class="s">'foo/bar.dir/baz.txt'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="nf">joinpath</span><span class="p">(</span><span class="s">"baz"</span><span class="p">,</span> <span class="s">"qux.txt"</span><span class="p">)</span>
+<span class="nc">PosixPath</span><span class="p">(</span><span class="s">'foo/bar.dir/baz/qux.txt'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="nf">with_name</span><span class="p">(</span><span class="s">"quux"</span><span class="p">)</span>
+<span class="nc">PosixPath</span><span class="p">(</span><span class="s">'foo/quux'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="nf">with_stem</span><span class="p">(</span><span class="s">"quz"</span><span class="p">)</span>  <span class="c1"># Since 3.9 (Oct 2020)
+</span><span class="nc">PosixPath</span><span class="p">(</span><span class="s">'foo/quz.dir'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="nf">with_suffix</span><span class="p">(</span><span class="s">".d"</span><span class="p">)</span>
+<span class="nc">PosixPath</span><span class="p">(</span><span class="s">'foo/bar.d'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="nf">resolve</span><span class="p">()</span>  <span class="c1"># Make path absolute
+</span><span class="nc">PosixPath</span><span class="p">(</span><span class="s">'/home/jnooree/foo/bar.dir'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="nf">resolve</span><span class="p">(</span><span class="n">strict</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  <span class="c1"># Since 3.6 (Dec 2016)
 </span><span class="nb">FileNotFoundError</span><span class="p">:</span> <span class="p">[</span><span class="n">Errno</span> <span class="mi">2</span><span class="p">]</span> <span class="n">No</span> <span class="n">such</span> <span class="nb">file</span> <span class="ow">or</span> <span class="n">directory</span><span class="p">:</span> <span class="p">...</span>
 </code></pre></div></div>
 
@@ -436,57 +550,57 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <p>특히 <code class="language-plaintext highlighter-rouge">Path.with_suffix()</code> method는 같은 이름의 다른 형식 파일을 생성할 때 유용한데요, computational chemistry 쪽에서는 파일 형식 변환을 자주 하기 때문에 굉장히 많이 쓰입니다. Python 3.9에 추가된 <code class="language-plaintext highlighter-rouge">Path.with_stem()</code>는 반대로 파일 형식을 유지한 채로 전/후처리를 거친 파일의 이름을 약간만 바꿔주고 싶을 때 유용합니다. 예를 들면 다음과 같은 식으로요.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sdf</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo.sdf"</span><span class="p">)</span>
-<span class="n">mol2</span> <span class="o">=</span> <span class="n">sdf</span><span class="p">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s">".mol2"</span><span class="p">)</span>  <span class="c1"># foo.mol2
-</span><span class="n">mol2_3d</span> <span class="o">=</span> <span class="n">mol2</span><span class="p">.</span><span class="n">with_stem</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">mol2</span><span class="p">.</span><span class="n">stem</span><span class="si">}</span><span class="s">_3d"</span><span class="p">)</span>  <span class="c1"># foo_3d.mol2
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sdf</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="s">"foo.sdf"</span><span class="p">)</span>
+<span class="n">mol2</span> <span class="o">=</span> <span class="n">sdf</span><span class="p">.</span><span class="nf">with_suffix</span><span class="p">(</span><span class="s">".mol2"</span><span class="p">)</span>  <span class="c1"># foo.mol2
+</span><span class="n">mol2_3d</span> <span class="o">=</span> <span class="n">mol2</span><span class="p">.</span><span class="nf">with_stem</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">mol2</span><span class="p">.</span><span class="n">stem</span><span class="si">}</span><span class="s">_3d"</span><span class="p">)</span>  <span class="c1"># foo_3d.mol2
 </span></code></pre></div></div>
 
 <h3 id="querying-metadata">Querying metadata</h3>
 
 <p>파일이 실제로 디스크에 존재하는지 <del>폰파일은 아닌지</del> 확인하는 등, 해당 경로의 metadata를 확인하는 method도 유용하게 사용 가능합니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo/bar.txt"</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="s">"foo/bar.txt"</span><span class="p">)</span>
 <span class="c1"># Check if the path exists
-</span><span class="n">p</span><span class="p">.</span><span class="n">exists</span><span class="p">()</span>
+</span><span class="n">p</span><span class="p">.</span><span class="nf">exists</span><span class="p">()</span>
 <span class="c1"># Check if the path exists and is a directory (or a symlink to a directory)
-</span><span class="n">p</span><span class="p">.</span><span class="n">is_dir</span><span class="p">()</span>
+</span><span class="n">p</span><span class="p">.</span><span class="nf">is_dir</span><span class="p">()</span>
 <span class="c1"># Check if the path exists and is a file (or a symlink to a file)
-</span><span class="n">p</span><span class="p">.</span><span class="n">is_file</span><span class="p">()</span>
+</span><span class="n">p</span><span class="p">.</span><span class="nf">is_file</span><span class="p">()</span>
 <span class="c1"># Check if the path is an absolute path
-</span><span class="n">p</span><span class="p">.</span><span class="n">is_absolute</span><span class="p">()</span>
+</span><span class="n">p</span><span class="p">.</span><span class="nf">is_absolute</span><span class="p">()</span>
 </code></pre></div></div>
 
 <h3 id="directory-related-operations">Directory related operations</h3>
 
 <p>Bash나 zsh 등의 shell에서는 어떤 디렉토리 내부의 모든 파일에 대해 무언가를 실행하는 것이 용이하지만, Python에서 비슷한 방식으로 작업하기는 그리 간단하지 않습니다. <code class="language-plaintext highlighter-rouge">pathlib</code>이 여기에서도 구원투수로 등판합니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo/bar"</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="s">"foo/bar"</span><span class="p">)</span>
 <span class="c1"># Equivalent to mkdir foo/bar
-</span><span class="n">d</span><span class="p">.</span><span class="n">mkdir</span><span class="p">()</span>
+</span><span class="n">d</span><span class="p">.</span><span class="nf">mkdir</span><span class="p">()</span>
 <span class="c1"># Equivalent to mkdir -p foo/bar; since 3.5 (Sep 2015)
-</span><span class="n">d</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span><span class="n">d</span><span class="p">.</span><span class="nf">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="c1"># Iterator of directory contents
-</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">d</span><span class="p">.</span><span class="n">iterdir</span><span class="p">():</span> <span class="p">...</span>
+</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">d</span><span class="p">.</span><span class="nf">iterdir</span><span class="p">():</span> <span class="p">...</span>
 <span class="c1"># Iterator of directory contents, matching a glob pattern
-</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">d</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="s">"*.txt"</span><span class="p">):</span> <span class="p">...</span>
+</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">d</span><span class="p">.</span><span class="nf">glob</span><span class="p">(</span><span class="s">"*.txt"</span><span class="p">):</span> <span class="p">...</span>
 <span class="c1"># Recursive globbing is also supported
-</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">d</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="s">"**/*.txt"</span><span class="p">):</span> <span class="p">...</span>
+</span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">d</span><span class="p">.</span><span class="nf">glob</span><span class="p">(</span><span class="s">"**/*.txt"</span><span class="p">):</span> <span class="p">...</span>
 </code></pre></div></div>
 
 <h3 id="file-related-operations">File related operations</h3>
 
 <p>디렉토리가 있으면 파일도 있어야겠죠?</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">text</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo/bar.txt"</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">text</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="s">"foo/bar.txt"</span><span class="p">)</span>
 <span class="c1"># Equivalent to open(text)
-</span><span class="k">with</span> <span class="n">text</span><span class="p">.</span><span class="nb">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span class="k">with</span> <span class="n">text</span><span class="p">.</span><span class="nf">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
         <span class="p">...</span>
 
 <span class="c1"># Whole file contents as a string; since 3.5 (Sep 2015)
-</span><span class="n">content</span> <span class="o">=</span> <span class="n">text</span><span class="p">.</span><span class="n">read_text</span><span class="p">()</span>
+</span><span class="n">content</span> <span class="o">=</span> <span class="n">text</span><span class="p">.</span><span class="nf">read_text</span><span class="p">()</span>
 <span class="c1"># Write a string to a file; since 3.5 (Sep 2015)
-</span><span class="n">text</span><span class="p">.</span><span class="n">write_text</span><span class="p">(</span><span class="s">"Hello, world!</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+</span><span class="n">text</span><span class="p">.</span><span class="nf">write_text</span><span class="p">(</span><span class="s">"Hello, world!</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>물론 첫 번째 예시에서 <code class="language-plaintext highlighter-rouge">Path.open()</code> method 대신 기존과 동일하게 built-in <code class="language-plaintext highlighter-rouge">open()</code> 함수를 사용해도 됩니다<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>. 두번째 예시의 경우 간단한 파일 입출력에서 아주 유용하게 사용 가능합니다. 단, <code class="language-plaintext highlighter-rouge">Path.write_text()</code>는 항상 write mode로 파일을 열기 때문에 동일한 파일에 여러 번 호출하면 <strong>안 됩니다</strong>. <code class="language-plaintext highlighter-rouge">Path.read_text()</code>는 매우 큰 파일에 대해 실행할 경우 메모리 문제가 발생할 수 있다는 것도 기억해 두면 좋습니다.</p>
@@ -495,21 +609,21 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <p>또 shell에서는 쉽지만 Python에서 어려운 작업이 파일/디렉토리를 이동하거나 삭제하는 것인데요, 일부 작업은 <code class="language-plaintext highlighter-rouge">Path</code> object로 실행 가능합니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s">"foo/bar"</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="s">"foo/bar"</span><span class="p">)</span>
 <span class="c1"># Rename foo/bar to baz (cannot overwrite directory)
-</span><span class="n">p</span><span class="p">.</span><span class="n">rename</span><span class="p">(</span><span class="s">"baz"</span><span class="p">)</span>
+</span><span class="n">p</span><span class="p">.</span><span class="nf">rename</span><span class="p">(</span><span class="s">"baz"</span><span class="p">)</span>
 <span class="c1"># Force rename foo/bar to baz
-</span><span class="n">p</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"baz"</span><span class="p">)</span>
+</span><span class="n">p</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="s">"baz"</span><span class="p">)</span>
 
 <span class="c1"># For files:
 # Equivalent to rm foo/bar
-</span><span class="n">p</span><span class="p">.</span><span class="n">unlink</span><span class="p">()</span>
+</span><span class="n">p</span><span class="p">.</span><span class="nf">unlink</span><span class="p">()</span>
 <span class="c1"># Equivalent to rm -f foo/bar; since 3.8 (Oct 2019)
-</span><span class="n">p</span><span class="p">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span><span class="n">p</span><span class="p">.</span><span class="nf">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="c1"># For *empty* directories:
 # Equivalent to rmdir foo/bar
-</span><span class="n">p</span><span class="p">.</span><span class="n">rmdir</span><span class="p">()</span>
+</span><span class="n">p</span><span class="p">.</span><span class="nf">rmdir</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p>이보다 복잡한 파일 및 디렉토리 복사/이동/삭제 작업은 <code class="language-plaintext highlighter-rouge">pathlib</code> 모듈만으로는 불가능합니다.</p>
@@ -518,9 +632,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <p>그래서 많은 사람들이 이런 코드를 사용합니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">os</span>
 
-<span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">"rm -rf foo/bar"</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="s">"rm -rf foo/bar"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>그러나 <code class="language-plaintext highlighter-rouge">os.system()</code> 함수는 되도록이면 사용을 지양하는 것이 좋습니다.</p>
@@ -531,7 +645,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#                 ↓ Oops!
 </span><span class="n">p</span> <span class="o">=</span> <span class="s">"/home/jnooree /foo/bar"</span>
-<span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s">"rm -rf </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="sa">f</span><span class="s">"rm -rf </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>축하합니다! 여러분의 <strong>홈 폴더가 통째로 사라졌군요</strong>. 이런 일이 실제로는 절대로 일어나지 않는다고 생각하신다면, 안타깝게도 틀렸습니다. 아주 유명한 사례로, Ubuntu에서 특정 오픈소스 패키지를 설치하면 설치 과정에서 <code class="language-plaintext highlighter-rouge">/usr</code> 디렉토리를 <del>친절하게도</del> <a href="https://github.com/MrMEEE/bumblebee-Old-and-abbandoned/issues/123">통째로 삭제해서 컴퓨터를 아주 깨끗하게 만들어 줬던 적이 있습니다</a><sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>. 해당 사례에서도 space 하나가 문제가 되었죠.</p>
@@ -543,18 +657,18 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <p>저런 일 당하지 말라고 Python에는 <code class="language-plaintext highlighter-rouge">shutil</code> 모듈이 포함되어 있습니다. 앞서 언급했던 <code class="language-plaintext highlighter-rouge">pathlib</code> 모듈로는 불가능한 파일 및 디렉토리 복사/이동/삭제 작업에 특화되어 있는 모듈이죠.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">shutil</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">shutil</span>
 
 <span class="c1"># Copy file data and permission
-</span><span class="n">shutil</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="s">"src.txt"</span><span class="p">,</span> <span class="s">"dst.txt"</span><span class="p">)</span>
+</span><span class="n">shutil</span><span class="p">.</span><span class="nf">copy</span><span class="p">(</span><span class="s">"src.txt"</span><span class="p">,</span> <span class="s">"dst.txt"</span><span class="p">)</span>
 <span class="c1"># Copy file dat and metadata (modified time, ...)
-</span><span class="n">shutil</span><span class="p">.</span><span class="n">copy2</span><span class="p">(</span><span class="s">"src.txt"</span><span class="p">,</span> <span class="s">"dst.txt"</span><span class="p">)</span>
+</span><span class="n">shutil</span><span class="p">.</span><span class="nf">copy2</span><span class="p">(</span><span class="s">"src.txt"</span><span class="p">,</span> <span class="s">"dst.txt"</span><span class="p">)</span>
 <span class="c1"># cp -a src dst, except raises error if dst exists
-</span><span class="n">shutil</span><span class="p">.</span><span class="n">copytree</span><span class="p">(</span><span class="s">"src"</span><span class="p">,</span> <span class="s">"dst"</span><span class="p">)</span>
+</span><span class="n">shutil</span><span class="p">.</span><span class="nf">copytree</span><span class="p">(</span><span class="s">"src"</span><span class="p">,</span> <span class="s">"dst"</span><span class="p">)</span>
 <span class="c1"># rsync -a src/ dst/; since 3.8 (Oct 2019)
-</span><span class="n">shutil</span><span class="p">.</span><span class="n">copytree</span><span class="p">(</span><span class="s">"src"</span><span class="p">,</span> <span class="s">"dst"</span><span class="p">,</span> <span class="n">dirs_exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span><span class="n">shutil</span><span class="p">.</span><span class="nf">copytree</span><span class="p">(</span><span class="s">"src"</span><span class="p">,</span> <span class="s">"dst"</span><span class="p">,</span> <span class="n">dirs_exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="c1"># rm -r src
-</span><span class="n">shutil</span><span class="p">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s">"src"</span><span class="p">)</span>
+</span><span class="n">shutil</span><span class="p">.</span><span class="nf">rmtree</span><span class="p">(</span><span class="s">"src"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h2 id="generate-temporary-files-and-directories">Generate temporary files and directories</h2>
@@ -562,28 +676,28 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <p>코딩을 하다 보면 가끔 임시로 사용하는 파일이나 디렉토리를 생성해야 하는 경우가 있습니다. 보통은 이런 방식을 사용하실 텐데요, 다른 사용자나 프로세스가 동일한 이름의 파일이나 디렉토리를 수정하려고 시도할 수 있기 때문에 권장하지 않습니다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Temporary file
-</span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"temp.txt"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="p">...</span>
+</span><span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="s">"temp.txt"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="p">...</span>
 
 <span class="c1"># Temporary directory
-</span><span class="n">os</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s">"temp"</span><span class="p">)</span>
+</span><span class="n">os</span><span class="p">.</span><span class="nf">mkdir</span><span class="p">(</span><span class="s">"temp"</span><span class="p">)</span>
 <span class="p">...</span>
-<span class="n">os</span><span class="p">.</span><span class="n">system</span><span class="p">(</span><span class="s">"rm -rf temp"</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="s">"rm -rf temp"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>대신 임시 파일 또는 디렉토리를 <strong>최대한 안전하게</strong> 생성해 주는 <code class="language-plaintext highlighter-rouge">tempfile</code> 모듈을 사용하세요.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tempfile</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">tempfile</span>
 
 <span class="c1"># "Safe" way to write to a temporary file
-</span><span class="k">with</span> <span class="n">tempfile</span><span class="p">.</span><span class="n">TemporaryFile</span><span class="p">(</span><span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="p">...</span>
+</span><span class="k">with</span> <span class="n">tempfile</span><span class="p">.</span><span class="nc">TemporaryFile</span><span class="p">(</span><span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="p">...</span>
 
 <span class="c1"># If file name should be used afterwards, then
-</span><span class="k">with</span> <span class="n">tempfile</span><span class="p">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">foo</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+</span><span class="k">with</span> <span class="n">tempfile</span><span class="p">.</span><span class="nc">NamedTemporaryFile</span><span class="p">(</span><span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="nf">foo</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
     <span class="p">...</span>
 
 <span class="c1"># For temporary directories; since 3.2 (Feb 2011)
-</span><span class="k">with</span> <span class="n">tempfile</span><span class="p">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">dirname</span><span class="p">:</span>
+</span><span class="k">with</span> <span class="n">tempfile</span><span class="p">.</span><span class="nc">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">dirname</span><span class="p">:</span>
     <span class="p">...</span>
 </code></pre></div></div>
 
@@ -617,10 +731,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
     <div class="post-related">
       <div>Related Articles</div>
       <ul>
-<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html" title="Collections">Manipulating paths in Python</a></li>
+<li><a class="post-link" href="/general/2022/01/01/initial-post.html" title="Collections">개발 블로그 시작했습니다</a></li>
 <li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/09/exploring-py-stdlib-intro.html" title="Collections">Exploring the Python Standard Library</a></li>
-<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/18/py-stdlib-builtins.html" title="Collections">More about built-ins</a></li>
-<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/11/py-stdlib-syntax.html" title="Collections">Advanced Python Syntax</a></li>
+<li><a class="post-link" href="/general/2022/01/03/my-domain.html" title="Collections">도메인 샀습니다</a></li>
+<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/08/23/py-stdlib-collections.html" title="Collections">Collections</a></li>
 </ul>
     </div>
 <div class="post-comments">
