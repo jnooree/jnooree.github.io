@@ -99,6 +99,79 @@ document.addEventListener('DOMContentLoaded', function(event) {
     display: none;
   }
 </style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.error("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
 </head>
 <body>
 <header class="site-header " role="banner">
@@ -436,23 +509,23 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># For loop
 </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="nf">print</span><span class="p">(</span><span class="s">"There is an odd number"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">There is an odd number</span><span class="sh">"</span><span class="p">)</span>
         <span class="k">break</span>
 
 <span class="c1"># any()
 </span><span class="k">if</span> <span class="nf">any</span><span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a</span><span class="p">):</span>
-    <span class="nf">print</span><span class="p">(</span><span class="s">"There is an odd number"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">There is an odd number</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="c1"># For loop
 </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">break</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="s">"They are all odd numbers"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">They are all odd numbers</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="c1"># all()
 </span><span class="k">if</span> <span class="nf">all</span><span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a</span><span class="p">):</span>
-    <span class="nf">print</span><span class="p">(</span><span class="s">"They are all odd numbers"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">They are all odd numbers</span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>간단한 for문은 이렇게 <code class="language-plaintext highlighter-rouge">any</code>나 <code class="language-plaintext highlighter-rouge">all</code>로 바꾸기만 해도 코드의 가독성이 크게 증가한다는 장점이 있습니다.</p>
@@ -480,13 +553,13 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <p>Python 3.9<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>에 추가된 <code class="language-plaintext highlighter-rouge">str</code> 타입의 method는 다음과 같습니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"This is a sample string"</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">.</span><span class="nf">removeprefix</span><span class="p">(</span><span class="s">"This"</span><span class="p">)</span>
-<span class="s">' is a sample string'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">.</span><span class="nf">removesuffix</span><span class="p">(</span><span class="s">"ing"</span><span class="p">)</span>
-<span class="s">'This is a sample str'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">.</span><span class="nf">removeprefix</span><span class="p">(</span><span class="s">"foo"</span><span class="p">)</span>
-<span class="s">'This is a sample string'</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="sh">"</span><span class="s">This is a sample string</span><span class="sh">"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">.</span><span class="nf">removeprefix</span><span class="p">(</span><span class="sh">"</span><span class="s">This</span><span class="sh">"</span><span class="p">)</span>
+<span class="sh">'</span><span class="s"> is a sample string</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">.</span><span class="nf">removesuffix</span><span class="p">(</span><span class="sh">"</span><span class="s">ing</span><span class="sh">"</span><span class="p">)</span>
+<span class="sh">'</span><span class="s">This is a sample str</span><span class="sh">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">.</span><span class="nf">removeprefix</span><span class="p">(</span><span class="sh">"</span><span class="s">foo</span><span class="sh">"</span><span class="p">)</span>
+<span class="sh">'</span><span class="s">This is a sample string</span><span class="sh">'</span>
 </code></pre></div></div>
 
 <p>해당 prefix나 suffix가 존재하지 않으면 원본을 그대로 반환하므로, 문자열 처리에 굉장히 유용하게 사용 가능합니다.</p>
@@ -522,10 +595,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
     <div class="post-related">
       <div>Related Articles</div>
       <ul>
-<li><a class="post-link" href="/%EC%97%B0%EB%A7%90%EC%A0%95%EC%82%B0/2021/12/31/year-end-settlement.html" title="Manipulating paths in Python">2021 연말정산</a></li>
-<li><a class="post-link" href="/general/2022/01/01/initial-post.html" title="Manipulating paths in Python">개발 블로그 시작했습니다</a></li>
+<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/09/exploring-py-stdlib-intro.html" title="Manipulating paths in Python">Exploring the Python Standard Library</a></li>
 <li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/11/py-stdlib-syntax.html" title="Manipulating paths in Python">Advanced Python Syntax</a></li>
 <li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html" title="Manipulating paths in Python">Manipulating paths in Python</a></li>
+<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/08/23/py-stdlib-collections.html" title="Manipulating paths in Python">Collections</a></li>
 </ul>
     </div>
 <div class="post-comments">

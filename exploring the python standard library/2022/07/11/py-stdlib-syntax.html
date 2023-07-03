@@ -99,6 +99,79 @@ document.addEventListener('DOMContentLoaded', function(event) {
     display: none;
   }
 </style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.error("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
 </head>
 <body>
 <header class="site-header " role="banner">
@@ -370,41 +443,41 @@ document.addEventListener('DOMContentLoaded', function(event) {
 <p>이런 걸 어딘가에서 많이 보셨을 겁니다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
-    <span class="s">"""
+    <span class="sh">"""</span><span class="s">
     This is a docstring.
-    """</span>
+    </span><span class="sh">"""</span>
     <span class="k">pass</span>
 </code></pre></div></div>
 
 <p>C나 다른 언어를 하다 오신 분의 경우에는 그냥 함수를 설명하는 주석(block comment)이겠거니 하고 넘기셨을 수도 있습니다만, 사실 Python에서는 triple-quoted string 역시 일반적인 string literal과 동일하게 사용 가능합니다. 그런데 왜 굳이 귀찮게 세번씩 쳐야 하냐고요?</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">long_string</span> <span class="o">=</span> <span class="s">"A very long string with</span><span class="se">\n</span><span class="s">"</span> \
-    <span class="o">+</span> <span class="s">"multiple lines</span><span class="se">\n</span><span class="s">"</span> \
-    <span class="o">+</span> <span class="s">"and many words"</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">long_string</span> <span class="o">=</span> <span class="sh">"</span><span class="s">A very long string with</span><span class="se">\n</span><span class="sh">"</span> \
+    <span class="o">+</span> <span class="sh">"</span><span class="s">multiple lines</span><span class="se">\n</span><span class="sh">"</span> \
+    <span class="o">+</span> <span class="sh">"</span><span class="s">and many words</span><span class="sh">"</span>
 </code></pre></div></div>
 
 <p>아마 그동안은 string literal 안에서 줄바꿈이 불가능하기 때문에 이렇게 쓰셨던 적이 많겠지만, 이렇게 작성하면 한눈에 잘 들어오지도 않을 뿐더러 속도도 느립니다. Triple-quoted string을 사용하면 다음과 같이 깔끔하게 표현이 가능합니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">long_string</span> <span class="o">=</span> <span class="s">"""A very long string with
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">long_string</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">A very long string with
 multiple lines
-and many words"""</span>
+and many words</span><span class="sh">"""</span>
 </code></pre></div></div>
 
 <p>그냥 줄바꿈을 하는 대로 곧바로 반영되기 때문이죠. 첫 줄이 나머지랑 정렬이 안 돼서 영 마음에 안 드신다고요? 백슬래시(<code class="language-plaintext highlighter-rouge">\</code>)를 찍어서 드셔보세요.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">long_string</span> <span class="o">=</span> <span class="s">"""</span><span class="se">\
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">long_string</span> <span class="o">=</span> <span class="sh">"""</span><span class="se">\
 </span><span class="s">A very long string with
 multiple lines
-and many words"""</span>
+and many words</span><span class="sh">"""</span>
 </code></pre></div></div>
 
 <p>물론 안에서 추가 줄바꿈을 하면 그대로 반영됩니다. 앞에 띄어쓰기를 포함하면 그것도 함께 포함됩니다. 그러니까 다음 예제를 실행하면…</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">long_string</span> <span class="o">=</span> <span class="s">"""</span><span class="se">\
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">long_string</span> <span class="o">=</span> <span class="sh">"""</span><span class="se">\
 </span><span class="s">
 A very long string with
     multiple lines
-    and many words"""</span>
+    and many words</span><span class="sh">"""</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="n">long_string</span><span class="p">)</span>
 
 <span class="n">A</span> <span class="n">very</span> <span class="nb">long</span> <span class="n">string</span> <span class="k">with</span>
@@ -421,15 +494,15 @@ A very long string with
 
 <p>Python 3.6 버전에서 추가된 <em>f</em>-string<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup>을 사용하면 이런 문제를 깔끔하게 회피 가능합니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span> <span class="o">=</span> <span class="s">"Nuri Jung"</span>
-<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"My name is </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Nuri Jung</span><span class="sh">"</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">My name is </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>말 그대로 literal이기 때문에 lazy evaluation<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup>이 일어나지 않습니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"Nuri Jung"</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">intro</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"My name is </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s">"</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"John Doe"</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Nuri Jung</span><span class="sh">"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">intro</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">"</span><span class="s">My name is </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="sh">"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">name</span> <span class="o">=</span> <span class="sh">"</span><span class="s">John Doe</span><span class="sh">"</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="n">intro</span><span class="p">)</span>
 <span class="n">My</span> <span class="n">name</span> <span class="ow">is</span> <span class="n">Nuri</span> <span class="n">Jung</span>
 </code></pre></div></div>
@@ -437,24 +510,24 @@ A very long string with
 <p>기존에 되던 것들은 전부 됩니다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"The result is </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">The result is </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">The</span> <span class="n">result</span> <span class="ow">is</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 </code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">%f</code> formatting이 그리우신 분들을 위한 실수 포맷팅도 당연히 지원합니다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">/</span> <span class="mi">3</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"The result is </span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">The result is </span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">The</span> <span class="n">number</span> <span class="ow">is</span> <span class="mf">33.33333333333336</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"The result is </span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>  <span class="c1"># 유효숫자 기준입니다
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">The result is </span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>  <span class="c1"># 유효숫자 기준입니다
 </span><span class="n">The</span> <span class="n">number</span> <span class="ow">is</span> <span class="mf">33.3</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"The result is </span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="mf">5.3</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">The result is </span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="mf">5.3</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">The</span> <span class="n">number</span> <span class="ow">is</span>  <span class="mf">33.3</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"The result is </span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="mf">05.3</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">The result is </span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="mf">05.3</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">The</span> <span class="n">number</span> <span class="ow">is</span> <span class="mf">033.3</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"The result is </span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="mf">03.3</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>  <span class="c1"># 칸수는 "최소"입니다
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">The result is </span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="mf">03.3</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>  <span class="c1"># 칸수는 "최소"입니다
 </span><span class="n">The</span> <span class="n">number</span> <span class="ow">is</span> <span class="mf">33.3</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"The result is </span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>  <span class="c1"># f는 소수점 이하 자리수 기준입니다
+<span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">The result is </span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>  <span class="c1"># f는 소수점 이하 자리수 기준입니다
 </span><span class="n">The</span> <span class="n">number</span> <span class="ow">is</span> <span class="mf">33.333</span>
 </code></pre></div></div>
 
@@ -462,7 +535,7 @@ A very long string with
 
 <p>최근<sup id="fnref:2:1" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>에는 더 좋아져서 이런 것도 지원합니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">num</span> <span class="o">=</span> <span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">num</span> <span class="o">=</span> <span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">num</span> <span class="o">=</span> <span class="mf">33.333</span>
 </code></pre></div></div>
 
@@ -471,16 +544,16 @@ A very long string with
 <p>아까 제가 느리다고 했는데, 얼마나 느린지 궁금하신 여러분들을 위해 벤치마크도 준비했습니다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># f-string
-</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s">"</span>
+</span><span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="sh">"</span>
 <span class="c1"># string format
-</span><span class="s">"{} {}"</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</span><span class="sh">"</span><span class="s">{} {}</span><span class="sh">"</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 <span class="c1"># percent format
-</span><span class="s">"%s %s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</span><span class="sh">"</span><span class="s">%s %s</span><span class="sh">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 
 <span class="c1"># plus operator
-</span><span class="n">s</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">t</span>
+</span><span class="n">s</span> <span class="o">+</span> <span class="sh">"</span><span class="s"> </span><span class="sh">"</span> <span class="o">+</span> <span class="n">t</span>
 <span class="c1"># string join
-</span><span class="s">" "</span><span class="p">.</span><span class="nf">join</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span>
+</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">.</span><span class="nf">join</span><span class="p">((</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span>
 </code></pre></div></div>
 
 <figure class="image">
@@ -621,7 +694,7 @@ A very long string with
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># SyntaxError
 </span><span class="k">if</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="s">"a is 1"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">a is 1</span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>하지만 대입과 동시에 조건을 확인하는 코드는 (다소 가독성이 떨어지는 문제가 생기는 경우도 있지만) 대부분의 while loop에서 상당히 유용하게 사용됩니다. 예를 들어 다음과 같은 코드는 만약 assignment문이 expression이었다면 가독성의 저하 없이도 덜 장황하게 짤 수 있습니다.</p>
@@ -662,7 +735,7 @@ A very long string with
     <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">42</span><span class="p">:</span>
         <span class="k">break</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="s">"No answer"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No answer</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="c1"># ...which is equivalent to:
 </span><span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
@@ -671,7 +744,7 @@ A very long string with
         <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="k">break</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
-    <span class="nf">print</span><span class="p">(</span><span class="s">"No answer"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">No answer</span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>즉, loop의 정상적인 종료 시에만 (<code class="language-plaintext highlighter-rouge">break</code>이나 <code class="language-plaintext highlighter-rouge">return</code>등을 통해 loop이 끝나지 않는 경우에만) else문이 실행됩니다. Loop을 돌면서 특정 조건을 만족하는지 확인하고, 만족하지 않는 경우 예외 처리를 해야 하는 코드에서 유용하게 사용됩니다. 예시로는 for문만 들었지만, loop else construct라는 말에서도 볼 수 있듯이 while loop도 else문의 사용이 가능합니다.</p>
@@ -726,10 +799,10 @@ A very long string with
     <div class="post-related">
       <div>Related Articles</div>
       <ul>
-<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/09/exploring-py-stdlib-intro.html" title="More about built-ins">Exploring the Python Standard Library</a></li>
-<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/11/py-stdlib-syntax.html" title="More about built-ins">Advanced Python Syntax</a></li>
-<li><a class="post-link" href="/general/2022/01/03/my-domain.html" title="More about built-ins">도메인 샀습니다</a></li>
 <li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html" title="More about built-ins">Manipulating paths in Python</a></li>
+<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/09/exploring-py-stdlib-intro.html" title="More about built-ins">Exploring the Python Standard Library</a></li>
+<li><a class="post-link" href="/general/2022/01/01/initial-post.html" title="More about built-ins">개발 블로그 시작했습니다</a></li>
+<li><a class="post-link" href="/%EC%97%B0%EB%A7%90%EC%A0%95%EC%82%B0/2021/12/31/year-end-settlement.html" title="More about built-ins">2021 연말정산</a></li>
 </ul>
     </div>
 <div class="post-comments">

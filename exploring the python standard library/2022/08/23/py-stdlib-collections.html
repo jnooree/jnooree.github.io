@@ -99,6 +99,79 @@ document.addEventListener('DOMContentLoaded', function(event) {
     display: none;
   }
 </style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.error("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
 </head>
 <body>
 <header class="site-header " role="banner">
@@ -360,7 +433,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <p>어떤 리스트를 특정 조건을 만족하는 더 작은 리스트로 나누는 작업은 상당히 빈번하게 일어납니다. 대개는 아래와 같이 작성하게 되죠.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="s">"yellow"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s">"blue"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">"yellow"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">...]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="sh">"</span><span class="s">yellow</span><span class="sh">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="sh">"</span><span class="s">blue</span><span class="sh">"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="sh">"</span><span class="s">yellow</span><span class="sh">"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">...]</span>
 <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">color</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">color</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
@@ -373,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <p>그러나 위와 같은 방식은 비교적 덜 자주 일어나는 “새로운 key를 만나는 경우”를 위해 모든 원소에 대해 조건문을 실행한다는 단점이 있습니다. 이를 개선하는 방법은 try-except 문을 통해 <code class="language-plaintext highlighter-rouge">KeyError</code>를 <a href="https://docs.python.org/3.5/glossary.html#term-eafp">처리하는 것입니다</a>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="s">"yellow"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s">"blue"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">"yellow"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">...]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="sh">"</span><span class="s">yellow</span><span class="sh">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="sh">"</span><span class="s">blue</span><span class="sh">"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="sh">"</span><span class="s">yellow</span><span class="sh">"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">...]</span>
 <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">color</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
@@ -388,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 
-<span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="s">"yellow"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s">"blue"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">"yellow"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">...]</span>
+<span class="n">l</span> <span class="o">=</span> <span class="p">[(</span><span class="sh">"</span><span class="s">yellow</span><span class="sh">"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="sh">"</span><span class="s">blue</span><span class="sh">"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="sh">"</span><span class="s">yellow</span><span class="sh">"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">...]</span>
 <span class="n">d</span> <span class="o">=</span> <span class="nf">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">color</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
     <span class="n">d</span><span class="p">[</span><span class="n">color</span><span class="p">].</span><span class="nf">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -409,7 +482,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <p>또 다른 자주 있는 작업은 리스트 원소의 빈도수를 세는 것입니다. 보통은 이렇게 작성하는 경우가 많습니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="s">"foo"</span><span class="p">,</span> <span class="s">"bar"</span><span class="p">,</span> <span class="s">"bar"</span><span class="p">,</span> <span class="s">"baz"</span><span class="p">,</span> <span class="p">...]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="sh">"</span><span class="s">foo</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">bar</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">bar</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">baz</span><span class="sh">"</span><span class="p">,</span> <span class="p">...]</span>
 <span class="n">c</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
@@ -425,7 +498,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 
-<span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="s">"foo"</span><span class="p">,</span> <span class="s">"bar"</span><span class="p">,</span> <span class="s">"bar"</span><span class="p">,</span> <span class="s">"baz"</span><span class="p">,</span> <span class="p">...]</span>
+<span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="sh">"</span><span class="s">foo</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">bar</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">bar</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">baz</span><span class="sh">"</span><span class="p">,</span> <span class="p">...]</span>
 <span class="n">c</span> <span class="o">=</span> <span class="nf">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
     <span class="n">c</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -437,14 +510,14 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 
-<span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="s">"foo"</span><span class="p">,</span> <span class="s">"bar"</span><span class="p">,</span> <span class="s">"bar"</span><span class="p">,</span> <span class="s">"baz"</span><span class="p">,</span> <span class="p">...]</span>
+<span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="sh">"</span><span class="s">foo</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">bar</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">bar</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">baz</span><span class="sh">"</span><span class="p">,</span> <span class="p">...]</span>
 <span class="n">c</span> <span class="o">=</span> <span class="nc">Counter</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">Counter</code> 역시 <code class="language-plaintext highlighter-rouge">dict</code>의 subclass이기 때문에 <code class="language-plaintext highlighter-rouge">dict</code>의 모든 method를 사용할 수 있습니다. 또한 <code class="language-plaintext highlighter-rouge">Counter</code>는 <code class="language-plaintext highlighter-rouge">most_common</code> 등의 유용한 method를 제공한다는 추가적인 장점도 있습니다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="p">.</span><span class="nf">most_common</span><span class="p">()</span>
-<span class="p">[(</span><span class="s">'bar'</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="s">'foo'</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="s">'baz'</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">...]</span>
+<span class="p">[(</span><span class="sh">'</span><span class="s">bar</span><span class="sh">'</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="sh">'</span><span class="s">foo</span><span class="sh">'</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="sh">'</span><span class="s">baz</span><span class="sh">'</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">...]</span>
 </code></pre></div></div>
 
 <h3 id="benchmarks-1">Benchmarks</h3>
@@ -478,9 +551,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
       <div>Related Articles</div>
       <ul>
 <li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/11/py-stdlib-syntax.html" title="">Advanced Python Syntax</a></li>
-<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/19/py-stdlib-paths.html" title="">Manipulating paths in Python</a></li>
-<li><a class="post-link" href="/general/2022/01/03/my-domain.html" title="">도메인 샀습니다</a></li>
 <li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/07/18/py-stdlib-builtins.html" title="">More about built-ins</a></li>
+<li><a class="post-link" href="/exploring%20the%20python%20standard%20library/2022/08/23/py-stdlib-collections.html" title="">Collections</a></li>
+<li><a class="post-link" href="/%EC%97%B0%EB%A7%90%EC%A0%95%EC%82%B0/2021/12/31/year-end-settlement.html" title="">2021 연말정산</a></li>
 </ul>
     </div>
 <div class="post-comments">
