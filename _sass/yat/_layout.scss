@@ -751,7 +751,7 @@ html {
   }
 
   @include media-query($on-palm) {
-    height: $banner-height / 1.5;
+    height: calc($banner-height / 1.5);
   }
 }
 
