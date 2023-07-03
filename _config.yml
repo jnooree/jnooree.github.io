@@ -75,8 +75,9 @@ last-modified-at:
 # If you want to change the content width, you can set to another value
 # content_width: "920px"
 
-# Google analytics
-# google_analytics: [Tracking ID]
+# Google analytics - GA4
+# google_analytics: [Measurement ID]
+# enableDNT: "false"
 
 # If you want to generate website sitemap, you can set true
 sitemap: true
@@ -189,6 +190,18 @@ header_pages:
 
 # Pagination setting
 paginate: 10
+
+# Photo previewer settings (PhotoSwipe 5)
+# the options please refer to: https://photoswipe.com/options/
+# photo_previewer:
+#  gallery: "section.main"
+#  children: "a.photo-swipe"
+#  bgOpacity: 0.8
+#  padding:
+#    top: 20
+#    bottom: 40
+#    left: 100
+#    right: 100
 
 # Disqus comments
 # disqus:
