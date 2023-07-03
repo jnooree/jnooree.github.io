@@ -78,8 +78,11 @@ jobs:
         run: |
           git diff -z --name-only --diff-filter=A HEAD~ -- '**/*.html' >new-files.txt
 
-          echo -n "::set-output name=has-new::"
-          (( $(stat --printf="%s" new-files.txt) > 0 )) && echo "true" || echo "false"
+          if [[ $(stat --printf="%s" new-files.txt) -gt 0 ]]; then
+            echo has-new=true >>$GITHUB_OUTPUT
+          else
+            echo has-new=false >>$GITHUB_OUTPUT
+          fi
 
       - uses: actions/upload-artifact@v3
         if: ${{ steps.added-files.outputs.has-new == 'true' }}
