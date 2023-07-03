@@ -63,7 +63,7 @@ jobs:
 
   get-new-files:
     needs: build
-    if: "!github.event.repository.private"
+    if: ${{ !github.event.repository.private }}
     outputs:
       has-new: ${{ steps.added-files.outputs.has-new }}
     runs-on: ubuntu-latest
@@ -82,7 +82,7 @@ jobs:
           (( $(stat --printf="%s" new-files.txt) > 0 )) && echo "true" || echo "false"
 
       - uses: actions/upload-artifact@v3
-        if: "steps.added-files.outputs.has-new == 'true'"
+        if: ${{ steps.added-files.outputs.has-new == 'true' }}
         with:
           name: new-files
           path: new-files.txt
@@ -91,7 +91,7 @@ jobs:
     needs:
       - deploy
       - get-new-files
-    if: "needs.get-new-files.outputs.has-new == 'true'"
+    if: ${{ needs.get-new-files.outputs.has-new == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Setup python
