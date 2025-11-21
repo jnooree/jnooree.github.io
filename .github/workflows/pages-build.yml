@@ -20,7 +20,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -68,7 +68,7 @@ jobs:
       has-new: ${{ steps.added-files.outputs.has-new }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           ref: gh-pages
           fetch-depth: 2
@@ -103,7 +103,7 @@ jobs:
       - name: Install tweepy
         run: python -m pip install -U tweepy
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           ref: main
 
