@@ -84,7 +84,7 @@ jobs:
             echo has-new=false >>$GITHUB_OUTPUT
           fi
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         if: ${{ steps.added-files.outputs.has-new == 'true' }}
         with:
           name: new-files
